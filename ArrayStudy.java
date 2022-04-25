@@ -206,7 +206,7 @@ public class ArrayStudy {
 		// synSeoyugi3의 각각의 요소에
 		// seoyugi의 각각의 요소를 넣으면 됨
 		for(int i = 0; i < seoyugi.length; i++){
-			synSeoyugi3[i] = Seoyugi[i];
+			synSeoyugi3[i] = seoyugi[i];
 		}
 		printArray(synSeoyugi3);
 	
