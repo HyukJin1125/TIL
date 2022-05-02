@@ -1,82 +1,114 @@
-package ch09_class.nextit;
+package ch09_class.school;
 
-public class Student {
-	// 학생(Student) 클래스의 상태(State)를
-	// 필드 변수로 선언을 한다.
-	// 필드 변수의 값을 꼭 초기화(init)하지 않아도 된다.
-	String name = "이름없음";
-	int age = 0;
-	int level = 1; // 기본값 설정
-	boolean isSubmit = false;
-	
-	// 기본 생성자(Constructor)
-	// 클래스 내에서 생성자를 따로 만들지 않는다면,
-	// 생략된 상태로 존재한다.
-	// 생성자를 따로 만들어 주었다면,
-	// 기본 생성자를 따로 만들어 주어야 사용 가능하다.
-	// 생성자는 객체가 생성될 시 ( new 클래스()) 실행되는 메소드라 봐도 무방 하다.
-	Student(){
-	this("이름없음", 0 , 1);
-	System.out.println("나 강림");
-	this.level = 1;
-	
+import ch09_class.UtilClass;
+
+public class Student implements Comparable {
+	// 캡슐화
+	private String name;
+	private int kor; // 국어 점수
+	private int eng; // 영어 점수
+	private int math; // 수학 점수
+	private double avg; // 평균 점수
+
+	public Student() {
+
 	}
-	
-	// 이름과 나이만 입력받는 생성자
-	Student(String name, int age){
-/*		this.name = name;
-		this.age = age;
-		this.level = 1;       // 기본값 설정
-	*/
-		// 본인 생성자
-		this(name, age, 1);
+
+	public Student(String name, int kor, int eng, int math) {
+		/*
+		 * this.name = name; this.kor = kor; this.eng = eng; this.math = math;
+		 * 
+		 * double average = (kor + eng + math)/3.0; this.avg = Utilclass.weRound(average
+		 * ,2);
+		 */
+		// this(name, kor, eng, math, UtilClass.weRound((kor + eng + math) / 3.0, 2);
+
 	}
-	
-	
-	// 생성자
-	// 단축키 : [ Alt + Shift + S ] 또는,
-	// 마우스 우클릭 - Source
-	// Generate Constructor using Fields
-	Student(String name, int age, int level){
-		// this는 현재 객체(클래스)를 의미
+
+	public Student(String name, int kor, int eng, int math, double avg) {
 		this.name = name;
-		this.age = age;
-		this.level = level;
+		this.kor = kor;
+		this.eng = eng;
+		this.math = math;
+		this.avg = avg;
 	}
-	
-	// 단축키 : [ Alt + Shift + S ]
-	// Generate toString()... 
-	// Override는 부모 클래스의 메소드를 
-	// 자식 클래스에서 재정의 하는 것을 말한다.
-	 
+
+	private void changeAvg() {
+		this.avg = UtilClass.weRound((this.kor + this.eng + this.math) / 3.0, 2);
+	}
+
 	@Override
 	public String toString() {
-		return "이름: " + name + "\n나이: " + age
-				+ "\n레벨: " + level + "\n과제제출: " + isSubmit;
-	}
-	
-	// 접근제어자
-	// 기입하지 않은 경우 = default(기본값) 이 적용되고,
-	// 동일한 패키지 내에서만 사용이 가능하다.
-	// private(비공개)은 현재 클래스 내에서만 사용이 가능하다.
-	// public은 어디서나 사용가능
-	public void endDay(){
-		levelUp();
-	}
-	
-	
-
-	private void levelUp() {
-		int randInt =(int) (Math.random()*5);
-		level += randInt;
-	}
-	
-	static void printInfo() {
-		System.out.println("NextIt 훈련생 입니다.");
-	
-	
-	
+		return "Student [name=" + name + ", kor=" + kor + ", eng=" + eng + ", math=" + math + ", avg=" + avg + "]";
 	}
 
+	// 단축키 : [Alt + Shift + S]
+	// Generate Getters and Setters
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getKor() {
+		return kor;
+	}
+
+	public void setKor(int kor) {
+		this.kor = kor;
+		changeAvg();
+	}
+
+	public int getEng() {
+		return eng;
+
+	}
+
+	public void setEng(int eng) {
+		this.eng = eng;
+		changeAvg();
+	}
+
+	public int getMath() {
+		return math;
+	}
+
+	public void setMath(int math) {
+		this.math = math;
+		changeAvg();
+	}
+
+	public double getAvg() {
+		return avg;
+	}
+
+	public void setAvg(double avg) {
+		this.avg = avg;
+		changeAvg();
+	}
+
+	@Override
+	public int compareTo(Object stu2) {
+
+		int result = 1;
+		// < 오름차순
+		// > 내림차순
+		if (this.avg - ((Student) stu2).getAvg() > 0) {
+			result = -1;
+		}
+
+		// 총점으로 해도 정렬 되잖아?
+		int myTotal = this.kor + this.eng + this.math;
+		int yourTotal = ((Student) stu2).getKor() 
+				   	+ ((Student) stu2).getEng()
+				   	+ ((Student) stu2).getMath();
+
+		// myTotal - yourTotal 은 오름차순이고,
+		// yourTotal - myTotal 은 내림차순이다.
+		return myTotal - yourTotal;
+	}
 
 }
