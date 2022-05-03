@@ -1,62 +1,61 @@
-package ch09_class.member;
+package ch09_class.homepage;
 
 import java.util.ArrayList;
 
 public class MemberDB {
-	private ArrayList<Member> memList;
+	private ArrayList<Member> memberList = new ArrayList<>();
 	
-	MemberDB(){
-		memList = new ArrayList<Member>();
-		Member temp = new Member("a001", "1234a", "석승원");
-		memList.add(temp);
-		memList.add(new Member("b001", "1234b", "김성빈"));
-		memList.add(new Member("c001", "1234c", "염현섭"));
-		memList.add(new Member("d001", "1234d", "김달현"));
-	}
-
-
-	public void regist(String id, String pw, String name) {
-		memList.add(new Member(id, pw, name));
+	// 싱글톤 패턴 적용
+	// 객체를 딱 한번만 소환할거임
+	// 1. 기본 생성자를 private으로 막는다.
+	private MemberDB() {
+		
 	}
 	
-	// 중복 체크
-	// 중복된다면 true 리턴
-	public boolean checkDuple(String id) {
-		for(int i = 0; i < memList.size(); i++) {
-			if(memList.get(i).id.equals(id)) {
-				return true;
+	// 2. 필드에 MemberDB를 new를 이용해서
+	// 객체로 만들어 둔다.
+	private static MemberDB instance = new MemberDB();
+	
+	// 3. 객체로 만든 instance를 제공하는 함수(getter)
+	// 만들기
+	public static MemberDB getInstance() {
+		return instance;
+	}
+	
+	
+	// 회원가입
+	public void regist(String id, String pw) {
+		// id 중복 체크
+		for(int i = 0; i < memberList.size(); i++) {
+			if(memberList.get(i).getId().equals(id)) {
+				System.out.println("아이디가 중복됩니다.");
+				return;
 			}
 		}
-		return false;
+		memberList.add(new Member(id, pw));
+		System.out.println("회원가입 성공!!");
 	}
 	
-	// 로그인 체크
-	public boolean checkLogin(String id, String pw) {
-		for(int i = 0; i < memList.size();i++) {
-		if(memList.get(i).id.equals(id)){
-			if(memList.get(i).passWord.equals(pw)) {
-				return true;
+	// 회원 목록 조회
+	public void printMembers() {
+		for(int i = 0; i < memberList.size(); i++) {
+			System.out.println(memberList.get(i));
+		}
+	}
+	
+	// 입력받은 아이디에 일치하는
+	// Member 리턴
+	public Member getMember(String id) {
+		for(int i = 0; i < memberList.size(); i++) {
+			if(memberList.get(i).getId().equals(id)) {
+				return memberList.get(i);
 			}
 		}
+		// 입력받은 id에 대한 Member가 존재하지 않으면
+		// 텅 빈 Member 객체 리턴
+		// id = null, pw = null
+		return new Member();
 	}
-	return false;
-}
-	
-	// 회원목록 조회
-	public void showMemList() {
-		for(int i = 0; i < memList.size();i++) {
-			System.out.println(memList.get(i));
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

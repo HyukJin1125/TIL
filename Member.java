@@ -1,43 +1,38 @@
-package ch09_class.member;
+package ch09_class.homepage;
 
 public class Member {
-	String id;        // 사용자 아이디
-	String passWord;  // 사용자 비밀번호
-	String name;      // 사용자 이름
+	private String id;
+	private String passWord;
 	
-	public Member(){
+	public Member() {
 		
 	}
 	
-	public Member(String id, String passWord, String name) {
-		
+	public Member(String id, String passWord) {
+		super();
 		this.id = id;
 		this.passWord = passWord;
-		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "[아이디: " + id + ", 이름: " + name + "]";
+		return "[아이디: " + id + " ]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
 	
 }
