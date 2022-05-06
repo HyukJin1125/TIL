@@ -1,39 +1,25 @@
-/*
-   -- 서술형 평가
-   -- 3개의 능력단위
-   -- 데이터베이스 구현 (4문항)
-   --   생성DDL, 개념
-   -- SQL활용 (4문항)
-   --   DML문 SQL
-   -- SQL응용(4문항)
-   --   개념, ANSI, 분석함수
 
-*/
--- 테스트 봤던거 보기
+-- 랭크함수
+SELECT mem_id                     -- 시험 2장
+    , mem_name                       
+    , mem_job
+    , mem_mileage
+    , rank() over(PARTITION BY mem_job 
+       order by mem_mileage desc) as mem_rank
+FROM member;
 
--- 계정생성 identified 외우기!!
---  권한 주는거 보기
--- 테이블 생성하는거 외우기
--- 얼터문 보기 (컬럼 사이즈 변경)
--- INSERT 구문 UPDATE DELETE 구문 외우기!!
+-- 안시조인
+SELECT MEMD                            -- 시험 2장
+, MEM_NAME
+, MEM_JOB
+, CART_PROD
+, CART_QTY
+FROM CART
+INNER join member mem
+on (cart.cart_member = mem.mem_id);
 
--- UPDATE 학생
---SET 이름 = '길동'
---,전공 = '컴퓨터공학'
--- WHERE 학번 = 20111112
-
--- 집계함수
--- 예시는 부서별 직원수
-/* SELECT department_id
-,count(employee_id) as cnt
-FROM employees
-GROUP BY department_id
-ORDER BY 1;
-*/
--- 분석함수 외우기 over 자세히 보기!!
--- join 부분 공부하기
-
-/*SELECT MEM_ID
+-- 동등조인
+SELECT MEM_ID
 , MEM_NAME
 , MEM_JOB
 , CART_PROD
@@ -41,39 +27,24 @@ ORDER BY 1;
 FROM MEMBER a
    , CART b
 WHERE a.mem_id = b.cart_member;
-*/
+
+-- 인서트
+INSERT INTO ex_MEM (MEM_ID) VALUES('hong');
+
+-- UPDATE
+UPDATE member
+SET mem_job = '회사원'
+  , mem_mileage = 1200
+WHERE mem_id = 'hong';
+
+-- 조회
+select * 
+FROM EX_MEM
+WHERE MEM_NAME LIKE '김%';
+
 
 /*
-데이터베이스 객체
-
-테이블 : 관계형 데이터베이스를 구성하는 기본 데이터 구조로
-    DBMS상에서 가장 기본적인 객체로 로우(행) 컬럼(열)로 구성된 
-    2차원 형태(표)의 객체이다.
-    데이터를 잘 관리하기 위해 제약조건이 존재하며,
-    데이터를 이루는 컬럼은 하나의 타입과 사이즈를 갖는다.
-
-뷰 (VIEW) : 하나 이상의 테이블을 연결해 마치 테이블 처럼 사용하는 개체
-            실제 데이터는 뷰를 구성하는 테이블에 담겨 있지만
-            테이블 처럼 사용할 수 있고 단순 뷰는
-            하나의 테이블로 생성하여 I(INSERT)/U(UPDATE)/D(DELETE) 가 가능하다.
-            복합 뷰는 하나이상의 테이블로 생성하여 I/U/D 가 불가능하다.
-            실제 테이블의 일부 컬럼을 숨길 수 있기 때문에 
-            보안의 목적으로 사용이 가능함.
-            또는 자주사용하는 복잡한 SQL이 있다면
-            뷰로 만들어 편리하게 이용이 가능하다.
-            
-시노님 (Synonim) : '동의어'란 뜻으로 데이터베이스 객체의 고유이름의 동의어를 만드는 것
-                   PUBLIC, PRIVATE 시노님이 있으며,
-                   PUBLIC은 모든 사용자 접근 가능
-                   PRIVATE은 특정 권한이 있는 사용자만 사용가능
-                   사용목적은 객체의 이름을 감추어 보안적으로 유리함
-                   고정된 동의어를 사용하면 객체실제 이름이 변경되어도
-                   동의어는 동일하기 때문에 개발에 유리함.
-                   
-함수 (FUNCTION) : 특정 연산을 하고 반환하는 객체로
-                 프로시저와 동일하게 절차형(PL/SQL)을 활용하며,
-                 일련의 연산 처리 결과를 단일 값으로 반환함.
-                 DML문에서 사용이 가능하며 클라이언트쪽에서 실행됨
+데이터베이스 객체          
                  
 프로시저(PROCEDURE) : 업무적으로 복잡한 구문을 별도의 구문으로 작성하여,
                     DB에 저장하고 실행가능한 고유한 기능을 수행하는 객체
@@ -86,5 +57,5 @@ WHERE a.mem_id = b.cart_member;
                        동시발생을 보장하기 위해 트랜잭션 처리를 한다.
                        업무의 가장 작은 단위로 구분하여 해당 업무가 성공하면
                        COMMIT; 하나라도 실패하면 ROLLBACK을 통해 작업이력을 제거한다.                 
-    
+*/   
 
