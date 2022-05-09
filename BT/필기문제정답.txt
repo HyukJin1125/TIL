@@ -1,0 +1,9 @@
+
+
+1.   2번 
+
+2.    "null",  "0" , "null"     /   "nextit",  "6" , "8850"     
+
+3.     6번째 줄 : java.lang.NullPointer Exception
+
+4.     "변수age : 10",  "user Age : 10" ,  "user2 Age : 10"   /   "변수age : 10",  "user Age : 20" ,  "user2 Age : 20"
