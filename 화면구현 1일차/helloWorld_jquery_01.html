@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+function fn_jquery(){
+    alert("fn_jquery");
+    var p_text =$("#p_id").text();        /* 여기에서 쓰는 $는 위에 src를 가져다 쓰겠다는 뜻이다.*/
+    console.log("p_text : ", p_text);
+}
+</script>
+</head>
+<body>
+    <p id= "p_id">hello world</P>
+    <input type="button" onclick="javascriplt:fn_jquery()"value="jQuery">
+</body>
+</html>
