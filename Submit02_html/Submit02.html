@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script>
+ function fn_prompt() {
+    const pi=3.141592653;
+    let ret = prompt("값을 입력하세요","");
+    if(ret == null) { 
+    
+      alert("취소하셨습니다.");
+    }
+    else if(ret == "") {
+      alert("입력값이 없습니다.");
+    }
+    else {
+      let result = ret * 2 * pi;
+      document.getElementById("div_1").textContent = result.toFixed(2);
+    }
+  }
+ 
+
+
+</script>
+</head>
+<body>
+<h3>원 둘레 구하기</h3>  
+<input type="button" onclick="javascript:fn_prompt()" value="원주율"> 
+<div id="div_1">
+</div>
+</body>
+</html>
