@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+
+</head>
+<body>
+    <script>
+
+// 선언적 함수
+function fn_total01 (a, b) {
+   let result = 0;
+    for(let i=a; i<=b; i++){
+        result += i; 
+    }
+    alert(result);
+  
+}
+// 익명 함수
+let fn_total02 = function (a, b) {
+      let result = 0;
+      for(let i=a; i<=b; i++){
+        result += i; 
+    }
+      alert(result);
+      
+    };
+    
+       
+    // 선언적 함수 배열
+    function fn_array01 (a, b){
+    let array01 = [];
+        for(let i=a; i<=b; i++){
+        array01.push(i);
+    }
+    alert(array01[4]);
+    };
+    
+    // 익명 함수 배열
+    let fn_array02 = function (a, b) {
+      let array02 = [];
+      for(let i=a; i<=b; i++){
+        array02.push(i); 
+    }
+      alert(array02[4]);
+      
+    };
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+</body>
+<h3>함수구하기</h3>   
+<hr>
+<input type="button" onclick="fn_total01(1, 10)" value="(선언적함수로)1부터10까지 합을 구하는 함수"/>
+<input type="button" onclick="fn_total02(1, 10)" value="(익명함수로)1부터10까지 합을 구하는 함수"/>
+<input type="button" onclick="fn_array01(1, 10)" value="(선언적함수로)1부터10까지 수를 배열에 담은 후 배열에 5번째 값을 출력하세요"/>
+<input type="button" onclick="fn_array02(1, 10)" value="(익명함수로)1부터10까지 수를 배열에 담은 후 배열에 5번째 값을 출력하세요"/>
+
+
+<div id="div_1">  
+</div>
+
+
+
+
+</html>
