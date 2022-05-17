@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+   
+</head>
+<h3>숫자가 카운터 되며, 마우스 클릭시 중단합니다.</h3>
+<hr>
+<body>
+    <div>
+        <span id="span_1" style="background-color:yellow">
+            100</span>
+    </div>
+<!-- hello wolrd -->
+<script>
+
+
+
+
+let timerID = setInterval("countNum()", 100); 
+
+function countNum() {
+    let num = parseInt(span_1.textContent);
+    num--;
+  console.log(num);
+    if(num == 30){
+        clearInterval(timerID);
+    }
+    span_1.textContent = num;
+}
+
+
+span_1.onclick = function (e) {
+    //(마우스 클릭시) 타이머 해제. 문자열 회전 중단 
+    clearInterval(timerID); 
+}
+
+
+
+</script>
+</body>
+</html>
