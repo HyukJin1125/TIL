@@ -1,0 +1,106 @@
+/* body{
+    background-color: pink;
+} */
+.intro_bg{
+    width: 100%;
+    height: 700px;
+    background-color: lightblue;
+}
+.intro_text{
+    width: 100%;
+    background-color: tomato;
+    text-align: center;
+    position: relative;
+    top: 300px;
+}
+.intro_bg{
+    background-image: url("../images/img102.jpg");
+    background-size: 100% 700px;
+}
+.intro_text{
+    background-color: transparent;
+}
+.intro_text > h1, .intro_text > h4{
+    color: white;
+}
+/* intro_bg 작업 끝 */
+
+.contents{
+    width: 1280px;
+    height: 700px;
+    background-color: lightblue;
+}
+.content01{
+    width: 1280px;
+    height: 700px;
+    background-color: lightpink;
+}
+.content01_h1{
+    width: 100%;
+    height: 100px;
+    background-color: lightblue;
+    text-align: center;
+}
+.content01_h1 > h1{
+    padding-top: 30px;
+}
+#div_table{
+    width: 1280px;
+    height: 500px;
+    background-color: lightgreen;
+}
+
+/* list css 작업 시작 */
+#div_table > table{
+    width: 80%;
+    height: 500px;
+    background-color: lightgray;
+}
+
+th, td{
+    text-align: center;
+    border-bottom: 2px solid black;
+}
+/* list css 작업 끝 */
+
+/* paging css 작업 시작 */
+
+.div_paging{
+    width: 100%;
+    height: 100px;
+    background-color: tomato;
+}
+.div_paging_a{
+    width: 300px;
+    height: 30px;
+    background-color: lightblue;
+    text-align: center;
+    padding-top: 20px;
+}
+.div_paging_a > a{
+    padding-left: 7px;
+}
+.div_paging_a > a:hover{
+    color: mediumblue;
+    font-weight: bold;
+}
+
+.div_board_write{
+    width: 100px;
+    height: 50px;
+    background-color: aquamarine;
+    position: relative;
+    left: 510px;
+    top:-30px;
+}
+.div_board_write > input{
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+.div_board_write > input:active{
+    transform: translate(2px, 2px);
+}
+.content01, .content01_h1, #div_table, #div_table > table, .div_paging, .div_paging_a, .div_board_write{
+    background-color: white;
+}
