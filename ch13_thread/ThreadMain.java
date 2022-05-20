@@ -1,0 +1,97 @@
+package ch13_thread;
+
+public class ThreadMain {
+
+	public static void main(String[] args) {
+
+		/*printNumbers(20);
+		printNumbers(100);*/
+		
+		// 기본적으로 스레드를 나눠주지 않으면 메인 스레드하나만 일을 해서
+		// 위에서부터 차례대로 코드가 실행 된다.
+		
+		System.out.println("\n===============\n");
+		
+		// 1. Thread를 상속(extends)받은 클래스를 이용해서 멀티 스레드를 구현하는 방법
+		
+		System.out.println("[메인 스레드] 카운트 시작~!");
+		ExThread exThread = new ExThread(20, "달현");
+		exThread.start();
+		ExThread exThread2 = new ExThread(100, "현섭");
+		exThread2.start();
+		// 외부 스레드에 일을 줄 때, 우선적으로 알아야 하는 것은
+		// 각각의 외부 스레드가 언제 일이 끝날지 모른다는 것이다.
+		System.out.println("[메인 스레드] 카운트 끝!");
+		
+		// 2. Runnable 인터페이스를 구현(implements) 한 클래스를 이용하는 방법
+		ExRunnable exRun = new ExRunnable(300, "혜연");
+		Thread hyeyeon = new Thread(exRun);
+		hyeyeon.start();
+		
+		Thread nagyeom = new Thread(new ExRunnable(400,"나겸"));
+		nagyeom.start();
+		
+		// 람다식 사용
+		Thread seolri = new Thread(() -> {
+			int num = 600;
+			for (int i = num; i <= num + 5; i++) {
+				// 현재 실행중인 Thread의 이름 출력
+				System.out.println("설리 " + i);
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			
+				}
+		});
+		seolri.start();
+		
+		System.out.println("메인스레드: 월급루팡 꺼억~");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	} // main 끝
+	
+	// 입력받은 숫자부터 +5까지 콘솔창에 출력해보시오
+	static void printNumbers(int num) {
+	for (int i = num; i <= num+5; i++) {
+		System.out.println(i);
+		
+		try {
+			// 실행에 텀(term)을 주고 싶을 때 사용 한다.
+			// sleep() 안에 숫자는 밀리초 단위 이다.
+			// 알아야 할 것은 현재 이 코드를 실행중인 스레드를 멈추는 것으로,
+			// 다른스레드는 영향을 받지 않는다.
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
