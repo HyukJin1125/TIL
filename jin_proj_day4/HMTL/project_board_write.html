@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>고쿠텐 동탄점</title>
+<link rel="icon" type="image/x-icon" href="./images/gokuten_log.jpg" />
+<link rel="stylesheet" type="text/css" href="./css/project_header.css" />
+<link rel="stylesheet" type="text/css" href="./css/project_boardWrite.css" />
+<link rel="stylesheet" type="text/css" href="./css/project_footer.css" />
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    window.onload= function(){
+        console.log("window.onload");
+        $("#page_footer").load("./project_footer.html");
+    }
+
+    function fn_submit(){
+        console.log("fn_sumit");
+        
+        let notice_title = document.getElementById("notice_title").value;
+        console.log("notice_title :    ", notice_title);
+
+        let notice_content = document.getElementById("notice_content").value;
+        console.log("notice_content :    ", notice_content);
+
+        let notice_gender = document.getElementById("gender").value;
+        console.log("notice_gender :    ", notice_gender);
+
+        let notice_job = document.querySelector("input[name='job']:checked").value;
+        console.log("notice_job :    ", notice_job);
+
+        let region = document.querySelectorAll('input[name="region"]:checked');
+        //console.log("region : ", region);
+        //console.log("region.length : ", region.length);
+        //console.log("region[0].value : ", region[0].value);
+
+        let notice_region =[];
+
+        for(let i=0; i<region.length; i++){
+            notice_region.push(region[i].value);
+        }
+        console.log("notice_region:", notice_region);
+        alert("등록 되었습니다.");
+        location.href="./project_board_list.html"
+
+    }
+</script>
+</head>
+<body>
+<!-- hello world -->
+  <!-- header 작업 시작 -->
+<div id="wrap">
+    <div id="img_div" class="intro_bg">
+        <div class="header">
+            
+            <div class="searchArea">
+                <form action="">
+                    <input type="text" id="input_search" name="input_search"
+                        value="" placeholder="Search">
+                    <span>검색</span>
+                </form>
+                
+            </div>
+            <ul class="nav">
+                <li><a href="./project_Home.html">홈</a></li>
+                <li><a href="./project_Home.html#about">소개</a></li>
+                <li class="menuList"><a href="./project_Home.html#service">메뉴</a>
+                    <ul>
+                      <li><a href="#">로우텐동</a></li>
+                      <li><a href="#">고쿠텐동</a></li>     
+                      <li><a href="#">새우텐동</a></li>     
+                      <li><a href="#">장어텐동</a></li>     
+                     
+                    </ul>
+                </li>
+                <li><a href="./project_Home.html#content">예약하기</a></li>    
+                <li><a href="./project_board_list.html">자유게시판</a></li> 
+            </ul>
+        </div>
+    <!-- header 작업 끝 -->
+
+    <!-- intro_bg 작업 시작 -->
+    <div class="intro_bg">
+        <div class="intro_text">
+            <h1>고쿠텐 동탄점</h1>
+            <h4>자유게시판</h4>
+        </div>
+    </div>
+    <!-- intro_bg 작업 끝 -->
+
+    <div class="contents">
+        <div class="content01">
+            <div class="content01_h1">
+                <h1>자유게시판</h1>
+            </div>
+            <form action="" id="editor_form" method="post">    
+                <div id="div_table">
+                    <table>
+                        <colgroup>
+                            <col width="200">
+                            <col width="400">
+                        </colgroup>
+                        <tr>
+                            <td class="td_left">제목</td>
+                            <td class="td_right">
+                                <input type="text" id="notice_title" maxlength="30"
+                                    value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">내용</td>
+                            <td class="td_right">
+                                <textarea name="notice_content" id="notice_content" 
+                                    cols="30" rows="10" ></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">성별</td>
+                            <td class="td_right">
+                                <select name="gender" id="gender">
+                                    <option value="men" selected>남성</option>
+                                    <option value="women" >여성</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">직업</td>
+                            <td class="td_right">
+                                <label for="student">
+                                    <input type="radio" name="job" id="student"
+                                        value="student" checked>학생&nbsp;&nbsp;&nbsp; 
+                                </label>
+                                <label for="teacher">
+                                    <input type="radio" name="job" id="teacher"
+                                        value="teacher" >선생님&nbsp;&nbsp;&nbsp; 
+                                </label>
+                                <label for="developer">
+                                    <input type="radio" name="job" id="developer"
+                                        value="developer" >개발자 
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td_left">지역</td>
+                            <td class="td_right">
+                                <label for="Seoul">
+                                    <input type="checkbox" name="region" id="Seoul"
+                                        value="Seoul" checked>서울&nbsp;&nbsp;&nbsp; 
+                                </label>
+                                <label for="Daejeon">
+                                    <input type="checkbox" name="region" id="Daejeon"
+                                        value="Daejeon" >대전&nbsp;&nbsp;&nbsp; 
+                                </label>
+                                <label for="Gwangju">
+                                    <input type="checkbox" name="region" id="Gwangju"
+                                        value="Gwangju" >광주&nbsp;&nbsp;&nbsp; 
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- 버튼 -->
+                <div id="div_button">
+                    <input type="button" value="목록" onclick="location.href='./project_board_list.html'">
+                    <input type="button" value="등록" onclick="fn_submit()">
+                    <input type="button" value="수정">
+                    <input type="button" value="삭제">
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- contents 작업 끝 -->
+
+    <footer id="page_footer">
+        <!-- footer -->
+    </footer>
+
+</div>
+</body>
+</html>
