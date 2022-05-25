@@ -1,0 +1,560 @@
+/* body{
+    background-color: red;
+} */
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    margin: 0 auto;
+    padding: 0;
+    color: black;
+}
+.intro_bg{
+    background-image: url("../images/introbg01.JPG");
+    background-size: 100% 700px;
+}
+.intro_bg{
+    width: 100%;
+    height: 700px;
+    /* background-color: lightblue; */
+}
+
+.header{
+    width: 1280px;
+    height: 86px;
+    background-color: red;
+    display: flex;
+}
+.nav{
+    display: flex;
+}
+.nav > li{
+    margin-left: 84px;
+}
+.nav > li > a {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+.searchArea{
+    width: 320px;
+    height: 40px;
+    background-color: green;
+    margin-top: 30px;
+}
+.nav{
+    margin-top: 30px;
+}
+.nav a:hover{
+    color: lime;
+}
+.nav li ul{
+    margin-left: 10px;
+    display: none;
+}
+.nav li:hover ul{
+    display: block;
+    animation: fade-in .5s;
+    animation-fill-mode: forwards;
+}
+@keyframes fade-in{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.nav a{
+    color: white;
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.searchArea > form > span{
+    width: 50px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.searchArea > form > input{
+    width: 250px;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    background: rgba(0,0,0,1);
+    padding-left: 15px;
+}
+.intro_text{
+    width: 100%;
+    background-color: violet;
+    text-align: center;
+    position: relative;
+    top: 300px;    
+}
+.intro_text > h1{
+    font-size: 50px;
+}
+.intro_text > h4{
+    font-size: 30px;
+}
+.intro_text > h1 ,  .intro_text > h4{
+    color: white;
+}
+.intro_bg{
+    background-color: transparent;
+    background-size: 100% 700px;
+}
+.header, .nav, .searchArea, .intro_text{
+    background-color: transparent;
+}
+
+/*1차 intro_bg ====================끝======================= */
+
+/* 2차 main_text1 ==============시작=============*/
+
+.main_text1{
+    width: 100%;
+    height: 1200px;
+    background-color: lightgray;
+}
+.main_text1 > h1 {
+    padding-top: 30px;
+    font-size: 40px;
+    text-align: center;
+}
+.icon_img1{
+    margin-top: 40px;
+}
+.icon_img1 > img{
+    width: 30%;
+    height: 400px;
+    margin-left: 50px;
+}
+
+.icon_img3 > img{
+   width: 30%; 
+   height: 300px;
+   margin-top: 40px;
+   margin-left: 50px;
+}
+.icon_img1, .icon_img2, .icon_img3{
+    display: flex;
+}
+.contentes1_bold{
+    margin-top: 100px;
+}
+.contentes1_bold>h1{
+    font-weight: bold;
+    font-size: 30px;
+    margin-right: 50px;
+}
+.contentes1_bold > p{
+   font-size: 20px;
+   margin-top: 10px;
+   margin-right: 100px;
+}
+.contentes2_bold > p{
+    margin-top: 10px;
+    font-size: 20px;
+}
+.contentes2_bold>h1{
+    margin-top: 80px;
+    font-weight: bold;
+    
+}
+.icon_img2 > img{
+    width: 30%; 
+    height: 300px;
+    margin-right: 50px;
+}
+
+.contentes3_bold{
+   margin-top: 80px;
+}
+.contentes3_bold > p{
+    font-size: 20px;
+    margin-top: 10px;
+}
+.contentes3_bold>h1{
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 80px;
+}
+/*.main_text1{
+    background-color: transparent;
+}*/
+
+
+/* 2차 main_text1 작업 =============끝=========== */
+
+/* 3차 main_text2 작업 ============시작=========== */
+
+.main_text2{
+    width: 100%;
+    height: 580px;
+    background-color: lightgray;
+
+}
+.contents {
+    display: flex;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+.main_text2{
+    text-align: center;
+}
+
+
+#service{
+    margin-left: -400px;
+    padding-top: 50px;
+}
+
+#service2{
+    margin-left: 1200px;
+    margin-top: -50px;
+    
+}
+
+.box>div>img{
+    width: 300px;
+    height: 300px;
+}
+
+.main_text1{
+    background-color: white;
+}
+
+/* 3차 main_text2 ==========끝============= */
+
+
+/* 4차 작업 main_text3 ============시작==============*/
+.main_text3>ul{
+    width: 100%;
+    height: 500px;
+    background-color: lightblue;
+    display: flex;
+}
+.main_text3>ul>li{
+    width: 50%;
+}
+.main_text3>ul>li:first-child{
+    background-color: lightyellow;
+}
+.main_text3>ul>li:last-child{
+    background-color: aquamarine;
+}
+.main_text3>ul>li:first-child>div{
+    width: 100%;
+    height: 500px;
+    background-color: lightpink;
+    text-align: center;
+}
+.main_text3>ul>li:last-child>div{
+    width: 100%;
+    height: 500px;
+    background-color:lightseagreen;
+    text-align: center;
+}
+.main_text3>ul>li>div>h1{
+    padding-top: 160px;
+}
+.main_text3 h1, .main_text3 p, .more2{
+    color: white;
+    padding-bottom: 20px;
+ }
+.more2{
+     border: 1px solid #fff;                                
+     width: 150px;
+     height: 20px;
+ }
+.more2 > p{
+    padding-top: 7px;
+    cursor: pointer;
+}
+.last_bg1{
+    background-image: url("../images/call.jpg");
+    background-size: 100% 500px;
+}
+.last_bg2{
+    background-image: url("../images/drive.jpg");
+    background-size: 100% 500px;
+}
+.last_bg1:hover{
+    opacity: 0.7;
+}
+.last_bg2:hover{
+    opacity: 0.7;
+}
+.main_text3 > ul > li{
+    background-color: black !important;
+}
+/* 4차 작업 main_text3 끝=================*/
+
+
+/* 반응형 시작 */
+/* 화면 너비가 0부터 1400px 일때 */
+@media(max-width:1400px){
+    .main_text2{
+        width: 95%;
+        height: 2000px;
+        text-align: center;
+    }
+    #service{
+        margin: 0;
+        
+    }
+    #service2{
+        margin: 0;
+        display: none;
+    }
+    .main_text2>h1{
+        width: 95%;
+        text-align: center;
+    }
+    .contents{
+        width: 95%;
+        height: 1600px;
+        display: block;
+        text-align: center;
+        margin-left: 0;
+    }
+    .box{
+        width: 95%;
+        text-align: center;
+    }
+    #wrap{width: 95%;}
+
+    .header{
+        width: 100%;
+    }
+    .nav > li {
+        margin-left: 30px;
+    }
+ 
+    .main_text1{
+        width:95%;
+        background-color:transparent;
+    }
+    .main_text2{
+        width:95%;
+        background-color:transparent;
+    }
+    .main_text3{
+        width:95%;
+        height: 1500px;
+        background-color:transparent;
+    }
+}
+    #menuicon, .header_icon{
+        display: none;
+    } 
+
+/* 화면 너비가 0부터 1220px 일때 */
+@media(max-width:1220px){
+    #wrap{width: 95%;}
+
+    .header{
+        width: 100%;
+    }
+    .nav > li {
+        margin-left: 30px;
+    }
+ 
+    .main_text1{
+        width:95%;
+        background-color:transparent;
+    }
+    .main_text2{
+        width:95%;
+        background-color:transparent;
+    }
+    .main_text3{
+        width:95%;
+        height: 1500px;
+        background-color:transparent;
+    }
+}
+    #menuicon, .header_icon{
+        display: none;
+    } 
+
+
+/* 화면 너비가 0부터 930일때 */
+@media(max-width:930px){
+    .nav{
+        display: none;
+    }
+    .searchArea{
+        margin: 0;
+    }
+    #input_search{
+        width: 200px;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+input[id="menuicon"]+label{
+display: block;
+width: 30px;
+height: 20px;
+background-color: lightblue;
+position: fixed;
+right: 30px;
+top: 25px;
+cursor: pointer;
+}
+input[id="menuicon"]+label > span{
+    display: block;
+    width: 100%;
+    height: 4px;
+    background-color: white;
+}
+input[id="menuicon"] + label span:nth-child(1){
+    position:absolute;
+    top: 0;
+}
+input[id="menuicon"] + label span:nth-child(2){
+    position:absolute;
+    top: calc( 50% - 2px );
+}
+input[id="menuicon"] + label span:nth-child(3){
+    position:absolute;
+    bottom: 0;
+}
+
+
+input[id="menuicon"]:checked + label span:nth-child(1){
+    top: 50%;
+    transform: rotate(45deg);
+}
+input[id="menuicon"]:checked + label span:nth-child(2){
+    opacity: 0;
+}
+input[id="menuicon"]:checked + label span:nth-child(3){
+    top: 50%;
+    transform: rotate(-45deg);
+}
+
+.header_icon{
+    display: block;
+}
+.header_icon{
+    width: 300px;
+    height: 100%;
+    background-color: #222;
+    position: fixed;
+    right: -300px;
+    z-index: 1;
+}
+
+input[id="menuicon"]:checked + label + div{
+    right: 0;
+}
+
+input[id="menuicon"] + label {
+    z-index: 2;
+    background-color: transparent;
+}
+input[id="menuicon"] + label span{
+    border-radius: 30px;
+    transition: all .3s;
+}
+.header_icon{
+    transition: all .3s;
+}
+.menu{
+    width: 250px;
+    height: 500px;
+    background-color: lavender;
+    margin: 100px auto;
+}
+.menu > li{
+    padding-top: 20px;
+    padding-left: 40px;
+}
+.menu > li > a{
+    color: white;
+} 
+.menu{
+    background-color: transparent;
+}
+.main_text1{
+    width: 95%;
+    height: 2200px;
+}
+.icon_img1, .icon_img2, .icon_img3{
+    display: block;
+    text-align: center;
+}
+.main_text2{
+    width: 95%;
+    height: 2000px;
+    text-align: center;
+}
+#service{
+    margin: 0;
+}
+#service2{
+    margin: 0;
+    display: none;
+}
+.main_text2>h1{
+    width: 95%;
+    text-align: center;
+}
+.contents{
+    width: 95%;
+    height: 2000px;
+    display: block;
+    text-align: center;
+    margin-left: 0;
+}
+.box{
+    width: 95%;
+    text-align: center;
+}
+
+
+
+
+}
+
+/* 화면 너비가 0부터 550px */
+@media(max-width:550px){
+/* #wrap{width: 100%;} <<< 제대로 작동하는지 안하는지 확인하는 거임 */
+
+
+
+.main_text1{
+height: 2400px;
+background-color: transparent;
+}
+
+
+
+
+
+.div_footer{
+    height: 200px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

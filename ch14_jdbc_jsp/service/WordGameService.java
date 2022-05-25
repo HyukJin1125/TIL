@@ -1,36 +1,40 @@
 package ch14_jdbc_jsp.service;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import ch14_jdbc_jsp.dao.WordGameDAO;
+import ch14_jdbc_jsp.dao.WordGameDao;
 import ch14_jdbc_jsp.jdbc.ConnectionPool;
 import ch14_jdbc_jsp.model.WordGameVO;
 
 public class WordGameService {
-	
+	private WordGameDao dao = WordGameDao.getInstance();
+	private ConnectionPool cp = ConnectionPool.getInstance();
+
 	private static WordGameService instance = new WordGameService();
 	
-	private WordGameDAO dao = WordGameDAO.getInstance();
-	private ConnectionPool pool = ConnectionPool.getInstance();
-
-	private WordGameService() {
-		// SINGLETON PATTERN
-	}
-
 	public static WordGameService getInstance() {
 		return instance;
 	}
-
-	public ArrayList<WordGameVO> getWordList() {
-		Connection conn = pool.getConnection();
+	
+	private WordGameService() {
+		
+	}
+	
+	public ArrayList<WordGameVO> getWordList(){
+		Connection conn = cp.getConnection();
+		
 		try {
 			return dao.getWordList(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			pool.releaseConnection(conn);
+			if(conn != null) cp.releaseConnection(conn);
 		}
+		
 		return new ArrayList<WordGameVO>();
 	}
+	
+	
 }

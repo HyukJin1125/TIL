@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>고쿠텐 동탄점</title>
+<link rel="icon" type="image/x-icon" href="./images/gokuten_log.JPG" />
+<link rel="stylesheet" type="text/css" href="./css/project_header.css" />
+<link rel="stylesheet" type="text/css" href="./css/project_boardlist.css" />
+<link rel="stylesheet" type="text/css" href="./css/project_footer.css" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    window.onload= function(){
+        console.log("window.onload");
+        $("#page_footer").load("./project_footer.html");
+    }
+</script>
+</head>
+<body>
+<!-- hello world -->
+ <!-- header 작업 시작 -->
+<div id="wrap">
+    <div id="img_div" class="intro_bg">
+        <div class="header">
+            
+            <div class="searchArea">
+                <form action="">
+                    <input type="text" id="input_search" name="input_search"
+                        value="" placeholder="Search">
+                    <span>검색</span>
+                </form>
+                
+            </div>
+            <ul class="nav">
+                <li><a href="./project_Home.html">홈</a></li>
+                <li><a href="./project_Home.html#about">소개</a></li>
+                <li class="menuList"><a href="./project_Home.html#service">메뉴</a>
+                    <ul>
+                      <li><a href="#">로우텐동</a></li>
+                      <li><a href="#">고쿠텐동</a></li>     
+                      <li><a href="#">새우텐동</a></li>     
+                      <li><a href="#">장어텐동</a></li>     
+                     
+                    </ul>
+                </li>
+                <li><a href="./project_Home.html#content">예약하기</a></li>    
+                <li><a href="#">자유게시판</a></li> 
+            </ul>
+            </div>
+    <!-- header 작업 끝 -->
+    
+    <!-- intro_bg 작업 끝 -->
+    <div class="intro_bg">
+        <div class="intro_text">
+            <h1>고쿠텐 동탄점</h1>
+            <h4>자유게시판</h4>
+        </div>
+    </div>
+    <!-- intro_bg 작업 끝 -->
+
+    <div class="contents">
+        <div class="content01">
+            <div class="content01_h1">
+                <h1>자유게시판</h1>
+            </div>
+            
+            <!-- 리스트 -->
+            <div id ="div_table">
+                <table>
+                    <colgroup>
+                    <col width="40">
+                    <col>
+                    <col width="180">
+                    <col width="300">
+                    </colgroup>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>시간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10</td>
+                        <td>배달기사가 하나 빼먹었어요</td>
+                        <td>김성윤</td>
+                        <td>2022.05.24</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>둘이 먹다 하나가 진짜 죽었어요</td>
+                        <td>신윤빈</td>
+                        <td>2022.05.22</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>내돈주고는 안사먹을 것 같아요</td>
+                        <td>이한정</td>
+                        <td>2022.05.19</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>1인분 같은 2인분이 나와요</td>
+                        <td>정찬웅</td>
+                        <td>2022.05.18</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>사장님이 불친절해요 꼰대같이 자꾸 이래라 저래라 함</td>
+                        <td>임동성</td>
+                        <td>2022.05.23</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>여기 더럽게 맛 없어요 가지마세요</td>
+                        <td>오혁진</td>
+                        <td>2022.05.25</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>여자친구 여기 데리고 갔다가 차였어요</td>
+                        <td>오혁진</td>
+                        <td>2022.05.18</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>행복하세요</td>
+                        <td>황의창</td>
+                        <td>2022.05.20</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>먹으러 갈사람 구합니다!!</td>
+                        <td>김텐동</td>
+                        <td>2022.05.18</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>사실 위에 글 다 제가 작성한거에요^^</td>
+                        <td>오혁진</td>
+                        <td>2022.05.31</td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+
+            <!-- paging -->
+
+            <div class="div_paging">
+                <div class="div_paging_a">
+                    <a href="#">&lt;&lt;</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">&gt;&gt;</a>
+                </div>
+            <div class="div_board_write">
+                <input type="button" value="글쓰기" onclick="location.href='./project_board_write.html'">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- contents 작업 끝 -->
+
+    <footer id="page_footer">
+        <!-- footer -->
+    </footer>
+
+</div>
+</body>
+</html>

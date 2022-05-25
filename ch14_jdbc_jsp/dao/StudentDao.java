@@ -17,7 +17,7 @@ public class StudentDao {
 	}
 	
 	private StudentDao() {
-		
+	
 	}
 	
 	
@@ -29,17 +29,19 @@ public class StudentDao {
 		query.append("		, stu_name	AS name			");
 		query.append("		, stu_password	AS password	");
 		query.append("		, stu_score	 AS score		");
-		query.append("FROM								");
-		query.append("		students					");
+		query.append("FROM	students					");
+		query.append("ORDER BY stu_score DESC			");
 		
 		PreparedStatement ps = conn.prepareStatement(query.toString());
 		
-		// 4. 쿼리문 실행과 동시에 결과를 ResultSet 객체에 담는다.
+		// 4. 쿼리문 실행과 동시에 결과를
+		// ResultSet 객체에 담는다.
 		ResultSet rs = ps.executeQuery();
 		
 		ArrayList<StudentVO> result = new ArrayList<>();
 		
-		// 5. 실행결과인 rs를 이용하여 데이터 조회
+		// 5. 실행결과인 rs를 이용하여
+		// 데이터 조회
 		while(rs.next()) {
 			StudentVO temp = new StudentVO();
 			
@@ -58,7 +60,7 @@ public class StudentDao {
 	}
 	
 	// 로그인 (SELECT, WHERE)
-	public StudentVO loginStu(Connection conn, String id) throws SQLException {
+	public StudentVO Stu(Connection conn, String id) throws SQLException {
 		StringBuffer query = new StringBuffer();
 		query.append("SELECT							");
 		query.append("		  stu_id	AS id			");
@@ -79,7 +81,8 @@ public class StudentDao {
 		
 		StudentVO result = new StudentVO();
 		
-		// 5. 실행결과인 rs를 이용하여 데이터 조회
+		// 5. 실행결과인 rs를 이용하여
+		// 데이터 조회
 		while(rs.next()) {
 			result.setStuId(rs.getString("id"));
 			result.setStuName(rs.getString("name"));
@@ -119,5 +122,35 @@ public class StudentDao {
 		
 		return cnt;
 	}
+	
+	// 회원 수정(UPDATE)
+	public int updateStu(Connection conn, StudentVO stu) throws SQLException {
+		StringBuffer query = new StringBuffer();
+		query.append("UPDATE					");
+		query.append("		students		  	");
+		query.append("SET 						");
+		query.append("		stu_name = ?		");
+		query.append("	,	stu_password = ?	");
+		query.append("	,	stu_score = ?		");
+		query.append("WHERE 1=1					");
+		query.append("	AND stu_id = ?			");
+		
+		PreparedStatement ps = conn.prepareStatement(query.toString());
+
+		int idx = 1;
+		ps.setString(idx++, stu.getStuName());
+		ps.setString(idx++, stu.getStuPassword());
+		ps.setInt(idx++, stu.getStuScore());
+		ps.setString(idx++, stu.getStuId());
+		
+		int cnt = ps.executeUpdate();
+		
+		if(ps != null) ps.close();
+		
+		return cnt;
+	}
+	
+	
+	
 	
 }

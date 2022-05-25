@@ -1,4 +1,4 @@
-package ch14_jdbc_jsp.jdbc;
+package hyukjin.submit15.jdbc;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,5 +53,7 @@ public class ConnectionFactory {
 		Connection conn = DriverManager.getConnection(url, id, password);
 		return conn;
 	}
+	
+
 	
 }

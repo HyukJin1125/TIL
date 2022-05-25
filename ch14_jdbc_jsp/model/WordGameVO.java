@@ -1,23 +1,23 @@
 package ch14_jdbc_jsp.model;
 
 public class WordGameVO {
-	private String word;
-
-	public WordGameVO(String word) {
-		super();
-		this.word = word;
-	}
-
+	private String words;
+	
 	public WordGameVO() {
+		
+	}
+
+	public WordGameVO(String words) {
 		super();
+		this.words = words;
 	}
 
-	public String getWord() {
-		return word;
+	public String getWords() {
+		return words;
 	}
 
-	public void setWord(String word) {
-		this.word = word;
+	public void setWords(String words) {
+		this.words = words;
 	}
-
+	
 }

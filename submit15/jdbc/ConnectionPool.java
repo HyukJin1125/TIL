@@ -1,4 +1,4 @@
-package ch14_jdbc_jsp.jdbc;
+package hyukjin.submit15.jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -61,3 +61,6 @@ public class ConnectionPool {
 	}
 	
 }
+
+
+

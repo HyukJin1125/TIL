@@ -1,61 +1,89 @@
 package ch14_jdbc_jsp.service;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import ch14_jdbc_jsp.dao.StudentDAO;
+import ch14_jdbc_jsp.dao.StudentDao;
 import ch14_jdbc_jsp.jdbc.ConnectionPool;
 import ch14_jdbc_jsp.model.StudentVO;
 
 public class StudentService {
-
+	private StudentDao dao = StudentDao.getInstance();
+	private ConnectionPool cp = ConnectionPool.getInstance();
+	
 	private static StudentService instance = new StudentService();
 	
-	private StudentDAO dao = StudentDAO.getInstance();
-	private ConnectionPool pool = ConnectionPool.getInstance();
-
-	private StudentService() {
-		// SINGLETON PATTERN
-	}
-
 	public static StudentService getInstance() {
 		return instance;
 	}
-
-	public ArrayList<StudentVO> getStuList() {
-		Connection conn = pool.getConnection();
+	
+	private StudentService() {
+		
+	}
+	
+	
+	// 회원목록 조회(SELECT)
+	public ArrayList<StudentVO> getStuList(){
+		Connection conn = cp.getConnection();
+		
 		try {
 			return dao.getStuList(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			pool.releaseConnection(conn);
+			if(conn != null) cp.releaseConnection(conn);
 		}
+		
 		return new ArrayList<StudentVO>();
 	}
-
-	public int addStu(StudentVO stu) {
-		Connection conn = pool.getConnection();
+	
+	// 로그인(SELECT, WHERE)
+	public StudentVO loginStu(String id) {
+		Connection conn = cp.getConnection();
+		
 		try {
-			return dao.addStu(conn, stu);
+			return dao.Stu(conn, id);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return 0;
 		} finally {
-			pool.releaseConnection(conn);
+			if(conn != null) cp.releaseConnection(conn);
 		}
+		
+		return new StudentVO();
 	}
-
-	public StudentVO getStuById(String id) {
-		Connection conn = pool.getConnection();
+	
+	
+	// 회원가입(INSERT)
+	public int insertStu(StudentVO stu) {
+		Connection conn = cp.getConnection();
+		
 		try {
-			return dao.getStuById(conn, id);
+			return dao.insertStu(conn, stu);
+		} catch (SQLException e) {
+			System.out.println("중복된 아이디입니다.");
+		} finally {
+			if(conn != null) cp.releaseConnection(conn);
+		}
+		
+		return 0;
+	}
+	
+	// 회원수정(UPDATE)
+	public int updateStu(StudentVO stu) {
+		Connection conn = cp.getConnection();
+		
+		try {
+			return dao.updateStu(conn, stu);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		} finally {
-			pool.releaseConnection(conn);
+			if(conn != null) cp.releaseConnection(conn);
 		}
+		
+		return 0;
 	}
-
+	
+	
+	
 }
