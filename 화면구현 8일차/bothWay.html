@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<style>
+*{
+    margin: 0 auto;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+.product_con{
+    width: 1000px;
+    height: 300px;
+    background-color: lightblue;
+}
+.product_list{
+    width: 300px;
+    height: 300px;
+    background-color: lightcoral;
+}
+.product_list >li{
+    width: 200px;
+    height: 200px;
+    background-color: lightgreen;   
+}
+.product_list > li:nth-child(1){
+    background-color: lime;
+}
+.product_list > li:nth-child(2){
+    background-color: magenta;
+}
+.product_list > li:nth-child(3){
+    background-color: lightgray;
+}
+.product_list > li:nth-child(4){
+    background-color: olive;
+}
+.product_list > li:nth-child(5){
+    background-color: orange;
+}
+.product_con{
+    width: 300px;
+}
+.product_list{
+    width: 200px;
+}
+.product_list{
+    position: relative;
+}
+.product_list > li{
+    position: absolute;
+    top: 0;
+    left: 200px;
+}
+.product_list > li > a{
+    font-size: 120px;
+    color: white;
+}
+.product_list > li{
+    text-align: center;
+}
+.product_list{
+    overflow: hidden;
+}
+.product_list > li:nth-child(1){
+    left: 0;
+}
+</style>
+<script>
+
+let page ;
+
+$(function(){
+    $(".btn_next").click(function(){
+        console.log("btn_next");
+
+        page = "next";
+        find_num(page);
+    });
+
+    $(".btn_prev").click(function(){
+        console.log("btn_prev");
+
+        page = "prev";
+        find_num(page);
+    });
+});
+
+let cur_no = 0;
+let next_no =1;
+function find_num(page){
+    console.log("find_num_page : ", page);
+    console.log("cur_no:: ", cur_no, "next_no:::", next_no);
+
+    if(page =="next"){
+
+        if(cur_no==0 && next_no ==5){
+            cur_no = 5;
+            next_no = 1;
+        }else{
+            //next인경우
+            if(cur_no==5){
+                cur_no=1;
+            }else{
+
+                //cur_no++;
+                if(cur_no != next_no){
+                    cur_no++;
+                }
+            }
+            next_no = cur_no +1;
+            if(next_no ==6){    
+                next_no =1;
+            }
+            
+        }
+        next_img(cur_no, next_no);
+
+    }else{  
+        //prev인경우
+
+       /* if(cur_no==0){
+            cur_no =1;
+            next_no =5;
+        }*/
+
+        if(cur_no==0 && next_no==1){
+            cur_no =1;
+            next_no =5;
+        }else{
+            cur_no = next_no;
+            next_no = cur_no -1;
+
+            if(next_no==0){
+                next_no =5;
+            }
+        }
+        prev_img(cur_no, next_no);
+        cur_no--;
+    }
+}
+function next_img(cur_no, next_no){
+console.log("cur_no : ", cur_no, "next_no: ", next_no);
+$(".product_list > li").hide();
+$(".product_list > li:nth-child("+ cur_no +")").show();
+$(".product_list > li:nth-child("+ next_no +")").show();
+$(".product_list > li:nth-child("+ cur_no +")").css("left", "0px");
+$(".product_list > li:nth-child("+ next_no +")").css("left", "200px");
+$(".product_list > li:nth-child("+ cur_no +")").animate({left : "-200px"});
+$(".product_list > li:nth-child("+ next_no +")").animate({left : "0px"});
+
+}
+
+function prev_img(cur_no, next_no){
+    //alert("prev_img");
+console.log("cur_no : ", cur_no, "next_no: ", next_no);
+$(".product_list > li").hide();
+$(".product_list > li:nth-child("+ cur_no +")").show();
+$(".product_list > li:nth-child("+ next_no +")").show();
+$(".product_list > li:nth-child("+ cur_no +")").css("left", "0px");
+$(".product_list > li:nth-child("+ next_no +")").css("left", "-200px");
+$(".product_list > li:nth-child("+ cur_no +")").animate({left : "200px"});
+$(".product_list > li:nth-child("+ next_no +")").animate({left : "0px"});
+}
+
+</script>
+</head>
+<body>
+<div class="product_con">
+    <ul class="product_list">
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+    </ul>
+</div>
+<div>
+    <a href="#" class="btn_prev">&lt;prev</a>
+    <a href="#" class="btn_next">next&gt;</a>
+</div>
+</body>
+</html>
