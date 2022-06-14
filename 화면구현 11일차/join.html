@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>NextIT</title>
+<link rel="icon" type="image/x-icon" href="./images/nextit_log.jpg" />
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/join.css">
+<script>
+
+$(function(){
+    $("#mem_id").click(function(){
+    	$(this).next().removeClass("warning");
+    });   
+    $("#mem_name").click(function(){
+    	$(this).next().removeClass("warning");
+    });
+    $("#mem_pw").click(function(){
+    	$(this).next().removeClass("warning");
+    });
+    $("#mem_pw_check").click(function(){
+    	$(this).next().removeClass("warning");
+    });
+    $("#mem_like_num").click(function(){
+    	$(this).next().removeClass("warning");
+    });
+    
+    
+    
+    //1차-4 로그인 로직과는 별도로 학생들에게 보여주기 위해서 ajax + key이벤트 사용 (All-e) 
+    //change로  id체크
+    //$("#mem_id").change(function(){
+	//keyup이벤트이면 글자마다 ajax 요청
+	$("#mem_id").keyup(function(){
+    	let mem_id = $(this).val();
+    	console.log("mem_id::::"+mem_id);
+    	$.ajax({
+    		url:"/sample01_ajax/checkId01.do",
+    		type:"post",
+    		data:{checkId:mem_id},
+    		dataType:"json",
+    		success:function(data){
+    			console.log("data:::"+data);
+    		},
+    		error:function(){
+    			alert("error");
+    		}
+    	});
+    });
+	
+});
+    
+//ajax 예제    
+function fn_checkId(){
+	//alert("fn_checkId:::::");
+	
+	let mem_id = $("#mem_id").val().trim();
+	let pattern = /\s/g;
+	if( mem_id.match(pattern) ) { 
+		alert("ID에 공백이 존재합니다. 다시 입력해주세요"); 
+		$("#mem_id").val("");
+		$("#mem_id").next().addClass("warning");
+		return;	
+	}else if(mem_id.length<4){
+	  	alert("ID가 너무 짧습니다. 4글자 이상 입력해 주세요");
+	  	$("#mem_id").val("");
+		$("#mem_id").next().addClass("warning");
+	  	return;	
+	}
+	
+	//방법 1 동기 방식
+	/*
+	document.loginFrom.mem_id = mem_id;
+	document.loginFrom.action = "/sample01_ajax/checkId01.do";
+	document.loginFrom.submit();
+	*/
+	
+	//방법2 비동기 방식
+	$.ajax({
+		url:"/sample01_ajax/checkId01.do",
+		type:"post",
+		data:{checkId:mem_id},
+		dataType:"text",
+		success:function(data){
+			alert(data);//쌍따옴표 붙어잇음
+		
+		//개발자 도구 확인 해보기 
+
+			
+		},
+		error:function(){
+			alert("error");
+		}
+	});
+    
+	    
+}
+
+
+function join(){
+    //alert("join");
+    
+    if($("#mem_id").val() ==""){
+        $("#mem_id").next().addClass("warning");
+        return;
+    }else if($("#mem_name").val() =="" ){
+        $("#mem_name").next().addClass("warning");
+        return;
+    }else if($("#mem_pw").val() =="" ){
+        $("#mem_pw").next().addClass("warning");
+        return;
+    }else if($("#mem_pw_check").val() =="" ){
+        $("#mem_pw_check").next().addClass("warning");
+        return;
+    }else if($("#mem_like_num").val() =="" ){
+        $("#mem_like_num").next().addClass("warning");
+        return;
+    }      
+  
+    //1차-1 아이디 trim으로 처음,끝 공백제거(1차-2)
+    let mem_id = $("#mem_id").val().trim();
+    console.log("mem_id:::"+mem_id);
+    
+    let pattern = /\s/g;
+    if( mem_id.match(pattern) ) { 
+    	alert("ID에 공백이 존재합니다. 다시 입력해주세요"); 
+		$("#mem_id").val("");
+		$("#mem_id").next().addClass("warning");
+		return;	
+   	}else if(mem_id.length<4){
+    	alert("ID가 너무 짧습니다. 4글자 이상 입력해 주세요");
+    	$("#mem_id").val("");
+		$("#mem_id").next().addClass("warning");
+    	return;	
+    }
+    let mem_name = $("#mem_name").val();
+    let mem_pw = $("#mem_pw").val().trim();
+    if( mem_pw.match(pattern) ) { 
+    	alert("PASSWORD에 공백이 존재합니다. 다시 입력해주세요"); 
+		$("#mem_pw").val("");
+		$("#mem_pw").next().addClass("warning");
+		return;	
+   	}else if(mem_pw.length<4){
+    	alert("PASSWORD가 너무 짧습니다. 4글자 이상 입력해 주세요");
+    	$("#mem_pw").val("");
+		$("#mem_pw").next().addClass("warning");
+    	return;	
+    }
+    let mem_pw_check = $("#mem_pw_check").val();
+    if(mem_pw != mem_pw_check){
+    	$("#mem_pw_check").val("");
+    	alert("입력하신 비밀번호와 재확인 비밀번호가 틀립니다.");
+    	return; 
+    }
+    let mem_like_num = $("#mem_like_num").val();
+    //isNaN은 숫자가 아닐 경우 true를 반환
+    if(isNaN(mem_like_num)){
+    	$("#mem_like_num").val("");
+    	alert("입력하신 Like Number가 숫자가 아닙니다.");
+    	return;
+    }else if(mem_like_num > 9 || mem_like_num < 1 ){
+    	$("#mem_like_num").val("");
+    	alert("숫자는 1~9 사이에 입력 해주세요.");
+    	return;
+    } 
+    
+    console.log("mem_id:::"+mem_id);
+
+    let member_info = {};   
+    member_info.mem_id = mem_id;
+    member_info.mem_name = mem_name;
+    member_info.mem_pw = mem_pw;
+    member_info.mem_like_num = mem_like_num;
+    console.log(member_info);
+    
+    
+    //1차-2 (한명만)신규가입한 회원을 배열에 넣기(1차-3)
+    /*     
+    let member_arr = [];
+    member_arr.push(member_info);
+    console.log(member_arr);
+    
+    let memberList = JSON.stringify(member_arr); 
+    let localStorage = window.localStorage;
+	if (!localStorage) {
+	     alert("로컬스토리지를 지원하지 않습니다.");
+	     return;
+	}else{
+	 	localStorage.setItem("memberList", memberList);
+	 	alert("회원가입이 완료되었습니다. 확인을 누르시면 로그인 화면으로 이동합니다.");
+	 	location.href ="/sample01_ajax/login.do";
+	}
+    */
+
+    
+    //1차-3 기존 가입한 회원이 있다면 뒤에 붙여줘야 하므로(1차-4)
+	let localStorage = window.localStorage;
+	if (!localStorage) {
+	     alert("로컬스토리지를 지원하지 않습니다.");
+	     return;
+	} 
+    let member_arr = localStorage.getItem("memberList");
+
+	//만약 없다면 배열을 새로 생성
+  	//undefined 체크방법
+	//if(memberList == undefined ){
+	//if(memberList === undefined){
+	//if(typeof(memberList) == "undefined" ){
+	//if(typeof memberList == "undefined" ){
+    if (member_arr === null || member_arr === undefined || member_arr ===""){
+    	member_arr = [];
+    }else{
+    	member_arr = JSON.parse(member_arr);
+    }
+  	for(let i=0; i<member_arr.length; i++){
+  		if(member_arr[i].mem_id==member_info.mem_id){
+  			alert("해당 ID가 존재합니다. 다른 ID를 입력해 주세요");
+  			$("#mem_id").val("");
+  			return;
+  		}
+  	}
+  	member_arr.push(member_info);
+  	
+ 	let memberList = JSON.stringify(member_arr); 
+	localStorage.setItem("memberList", memberList);
+	alert("회원가입이 완료되었습니다. 확인을 누르시면 로그인 화면으로 이동합니다.");
+	location.href ="/sample01_ajax/login.do";
+
+    
+};
+
+
+</script>
+</head>
+<body>
+    <section class="login_form">
+        <h1>NextIT</h1> 
+        <form name="loginFrom" method="post">
+            <div class="int-area">
+                <input type="text" id="mem_id" name="mem_id" value="" autocomplete="off"  required>
+                <label for=mem_id>USER ID</label>
+                <!-- 학생들 보여주려고 만든 부분 실제 데이터입히는것은 key Event로 진행 -->
+                <button type="button" id="check_id"name="check_id" onclick="fn_checkId()">ID확인</button>
+            </div>
+            <div class="int-area">
+                <input type="text" id="mem_name" name="mem_name" value="" autocomplete="off" required>
+                <label for=mem_name>USER NAME</label>
+            </div>
+            <div class="int-area">
+                <input type="password" id="mem_pw" name="mem_pw" value="" autocomplete="off" required>
+                <label for=mem_pw>PASSWORD</label>
+            </div>
+            <div class="int-area">
+                <input type="password" id="mem_pw_check" name="mem_pw_check" value=""  autocomplete="off" required>
+                <label for=mem_pw_check>RECONFIRM PASSWORD</label>
+            </div>
+            <div class="int-area">
+                <input type="text" id="mem_like_num" name="mem_like_num" value="" autocomplete="off" required>
+                <label for=mem_like_num>Like Number 1~9 (To Find ID, PASSWORD)</label>
+            </div>
+            <div class="btn-area">
+                <button type="button"  id="btn_join"name="btn_join" onclick="join()">JOIN</button>
+            </div>
+        </form>    
+    </section>
+    
+</body>
+</html>
