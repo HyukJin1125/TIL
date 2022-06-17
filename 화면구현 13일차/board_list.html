@@ -16,13 +16,15 @@ $(function(){
     $(".top_nav").load("./header.do");
     $("#page_footer").load("/sample01_ajax/footer.do");
     boardList();
-
+   
 });
 
 function boardList(){
 	console.log("boardList");
 	
-	let boardList = localStorage.getItem("boardList");
+	
+	// 1개 글만 처리 
+	/*let boardList = localStorage.getItem("boardList");
 	console.log("boardList : ". boardList);
 	if(boardList !==null&&boardList!==undefined && boardList !==""){
 		let boardParse=JSON.parse(boardList);
@@ -38,10 +40,42 @@ function boardList(){
 		
 		$("#div_table > table > tbody").append(output);
 		
+	} */
+	
+	// 여러개 글처
+	let boardList = localStorage.getItem("boardList");
+	console.log("boardList : ". boardList);
+	if(boardList !==null&&boardList!==undefined && boardList !==""){
+		let boardParse=JSON.parse(boardList);
+		console.log("boardParse:",boardParse);
+		
+		let total_cnt = boardParse.length;
+		console.log("total_cnt : ",total_cnt);
+		
+		let output = "";
+		boardParse.reverse().forEach(function (element,index){
+			output += "<tr>";
+			output += "<td>"+ (total_cnt - index) +"</td>";
+			output += "<td><a href='#' onclick=fn_title("+ element.write_num+")>"+ element.notice_title+"</a></td>";
+			output += "<td>"+ element.mem_id+"</td>";
+			output += "<td>"+ element.write_date+"</td>";
+			output += "</tr>";	
+		});
+				
+		$("#div_table > table > tbody").append(output);
+		
 	}
+}
+
+function fn_title(temp_write_num){
+	console.log("temp_write_num : "+ temp_write_num);
+	sessionStorage.setItem("temp_write_num",temp_write_num);
+	location.href="/sample01_ajax/board_write.do";
+
 }
 function board_write(){
 	console.log("board_write");
+	sessionStorage.removeItem("temp_write_num");
 	location.href="/sample01_ajax/board_write.do"
 }
 </script>
