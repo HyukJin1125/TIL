@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>NextIT</title>
+<link rel="icon" type="image/x-icon" href="./images/nextit_log.jpg" />
+<link rel="stylesheet" type="text/css"  href="./css/style_boardList.css">
+<link rel="stylesheet" type="text/css"  href="./css/header.css">
+<link rel="stylesheet" type="text/css"  href="./css/footer.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+$(function(){
+    // jQuery 확인
+    // alert("345345");
+    $(".top_nav").load("./header.do");
+    $("#page_footer").load("/sample01_ajax/footer.do");
+    boardList();
+   
+});
+
+/* function boardList(){
+	console.log("boardList"); */
+	
+	
+	// 1개 글만 처리 
+	/*let boardList = localStorage.getItem("boardList");
+	console.log("boardList : ". boardList);
+	if(boardList !==null&&boardList!==undefined && boardList !==""){
+		let boardParse=JSON.parse(boardList);
+		console.log("boardParse:",boardParse);
+		
+		let output = "";
+		output += "<tr>";
+		output += "<td>"+boardParse.write_num +"</td>";
+		output += "<td>"+ boardParse.notice_title+"</td>";
+		output += "<td>"+ boardParse.mem_id+"</td>";
+		output += "<td>"+ boardParse.write_date+"</td>";
+		output += "</tr>";
+		
+		$("#div_table > table > tbody").append(output);
+		
+	} */
+	
+	// 여러개 글처리
+	/* let boardList = localStorage.getItem("boardList");
+	console.log("boardList : ". boardList);
+	if(boardList !==null&&boardList!==undefined && boardList !==""){
+		let boardParse=JSON.parse(boardList);
+		console.log("boardParse:",boardParse);
+		
+		let total_cnt = boardParse.length;
+		console.log("total_cnt : ",total_cnt);
+		
+		let output = "";
+		boardParse.reverse().forEach(function (element,index){
+			output += "<tr>";
+			output += "<td>"+ (total_cnt - index) +"</td>";
+			output += "<td><a href='#' onclick=fn_title("+ element.write_num+")>"+ element.notice_title+"</a></td>";
+			output += "<td>"+ element.mem_id+"</td>";
+			output += "<td>"+ element.write_date+"</td>";
+			output += "</tr>";	
+		});
+				
+		$("#div_table > table > tbody").append(output);
+		
+	}
+} */
+
+// 페이징 처리 1 (2번 페이지 처리 와 하단에 페이징 보이게 처리하기)
+
+/* function boardList(){
+	console.log("boardList");
+	
+
+let boardList = localStorage.getItem("boardList");
+	console.log("boardList : ". boardList);
+	if(boardList !==null&&boardList!==undefined && boardList !==""){
+		let boardParse=JSON.parse(boardList);
+		console.log("boardParse:",boardParse);
+		
+		let total_cnt = boardParse.length;
+		console.log("total_cnt : ",total_cnt);
+		
+		// 하단에 추가할 페이징 개수 세팅
+		// 하단에 표시할 페이지 개수
+		
+		let basic_paging_cnt = 3;
+		// 총 페이지 구하기 (한 페이지 10개씩 이므로 총 글 개수에서 10으로 나누기)
+		let paging_cnt = total_cnt/10;
+		console.log("paging_cnt : ", paging_cnt);
+		
+		//2번페이지로 설정해서 페이지 리스트를 생성하기
+		let paging_num = 2;
+
+		//해당 페이지에 낮은 게시글 순번 구하기
+		let min_num = (paging_num * 10) - 9;
+		
+		//해당 페이지에 높은 게시글 순번 구하기
+		let max_num = (paging_num * 10);
+		
+		console.log("min_num : ",min_num);
+		console.log("max_num : ",max_num);
+		
+		let paging_output = "";
+		for(let i = 0; i < paging_cnt; i++){
+			if(i==0){
+				paging_output += "&lt;&lt;";
+			}
+		//페이지 번호
+		paging_output += "<a>"+(i+1)+"</a>";
+		
+		if(i == parseInt(paging_cnt)){
+			paging_output += "&gt;&gt;";
+			}
+		}
+		$(".div_paging_a").append(paging_output);
+		
+		
+			
+		let output = "";
+		boardParse.reverse().forEach(function (element,index){
+		
+		if(min_num <= index +1 && index +1 <= max_num){
+		output += "<tr>";
+		output += "<td>"+boardParse.write_num +"</td>";
+		output += "<td>"+ boardParse.notice_title+"</td>";
+		output += "<td>"+ boardParse.mem_id+"</td>";
+		output += "<td>"+ boardParse.write_date+"</td>";
+		output += "</tr>";
+		}
+		
+	});
+	$("#div_table > table > tbody").append(output);
+		
+	} 
+
+} */
+
+
+
+// 페이징 처리02 ( 하단에 페이징 번호를 클릭하면 해당 페이지가 보이게 처리)
+ // function boardList(){
+
+/*  function boardList(cur_num){	
+console.log("boardList");
+console.log("cur_num : " + cur_num);	
+
+$("#div_table > table > tbody > tr").remove();
+$(".div_paging_a").children().remove();
+$(".div_paging_a").text("");
+
+
+
+
+
+let boardList = localStorage.getItem("boardList");
+console.log("boardList : ". boardList);
+if(boardList !==null&&boardList!==undefined && boardList !==""){
+	let boardParse=JSON.parse(boardList);
+	console.log("boardParse:",boardParse);
+	
+	let total_cnt = boardParse.length;
+	console.log("total_cnt : ",total_cnt);
+	
+	// 하단에 추가할 페이징 개수 세팅
+	// 하단에 표시할 페이지 개수
+	
+	let basic_paging_cnt = 3;
+	let paging_cnt = total_cnt/10;
+	console.log("paging_cnt : ", paging_cnt);
+	
+	//let paging_num = 2;
+	let paging_num;
+	if(cur_num !== null && cur_num !== undefined && cur_num !==0){
+	paging_num = cur_num;
+	}else{
+		paging_num = 1;
+	}
+
+	
+	//해당 페이지에 낮은 게시글 순번 구하기
+	let min_num = (paging_num * 10) - 9;
+	
+	//해당 페이지에 높은 게시글 순번 구하기
+	let max_num = (paging_num * 10);
+	
+	console.log("min_num : ",min_num);
+	console.log("max_num : ",max_num);
+	
+	let paging_output = "";
+	for(let i = 0; i < paging_cnt; i++){
+		if(i==0){
+			paging_output += "&lt;&lt;";
+		}
+	//페이지 번호
+	// paging_output += "<a>"+(i+1)+"</a>";
+	paging_output += "<a href = '#' onclick = 'boardList("+(i+1)+")'>"+ (i+1) +"</a>";
+	
+	if(i == parseInt(paging_cnt)){
+		paging_output += "&gt;&gt;";
+		}
+	}
+	$(".div_paging_a").append(paging_output);
+	
+	
+		
+	let output = "";
+	boardParse.reverse().forEach(function (element,index){
+	
+	if(min_num <= index +1 && index +1 <= max_num){
+	output += "<tr>";
+	output += "<td>"+boardParse.write_num +"</td>";
+	output += "<td>"+ boardParse.notice_title+"</td>";
+	output += "<td>"+ boardParse.mem_id+"</td>";
+	output += "<td>"+ boardParse.write_date+"</td>";
+	output += "</tr>";
+	}
+	
+});
+$("#div_table > table > tbody").append(output);
+} 
+}  */ 
+
+// 페이징 처리 03 (좌우 화살표 및 페이징 개수 처리)
+function boardList(cur_num) {
+    console.log("boardList");
+    console.log("cur_num: " + cur_num);
+    $("#div_table > table > tbody > tr").remove();
+    $("#div_paging_a").children().remove();
+    $(".div_paging_a").text("");
+    let boardList = localStorage.getItem("boardList");
+    //console.log("boardList: ", boardList);
+    if (boardList !== null && boardList !== undefined && boardList !== "") {
+        let boardParse = JSON.parse(boardList);
+        console.log("boardParse: ", boardParse);
+        let total_cnt = boardParse.length;
+        console.log("total_cnt", total_cnt);
+        let basic_paging_cnt = 3;
+        let paging_cnt = total_cnt / 10;
+        console.log("paging_cnt: ", paging_cnt);
+        
+        let paging_num;
+        if (cur_num !== null && cur_num !== undefined && cur_num != 0) {
+            paging_num = cur_num;
+        } else {
+            paging_num = 1;
+        }
+        let min_num = (paging_num * 10) - 9;
+        let max_num = (paging_num * 10);
+        console.log("min_num", min_num);
+        console.log("max_num", max_num);
+        let paging_output = "";
+        for (let i = 0; i < paging_cnt; i++) {
+            if (i == 0) {
+                //paging_output += "&lt;&lt;";
+                paging_output += "<a href='#' class='button_side' onclick='boardList("
+                        + (paging_num - 1) + ")'>&lt;&lt;</a>";
+            }
+            //paging_output += "<a href='#' onclick='boardList("+(i+1)+")'>"+(i+1)+"</a>";
+            //클릭한 숫자가 1이거나 목록 버튼을 클릭해서 리스트 페이지로 온 경우
+            if (paging_num == 1) {
+                if (i < 3) { // 0,1,2  -> 1,2,3페이지 나오게 처리
+                    paging_output += "<a href='#' onclick='boardList(" + (i + 1) + ")'>" + (i + 1) + "</a>";
+                }
+            } else if (paging_num == parseInt(paging_cnt) + 1
+                    || paging_num == paging_cnt) {
+                //클릭한 숫자가 마지막 페이지 숫자인 경우
+                if (paging_num - 3 == i || paging_num - 2 == i
+                        || paging_num - 1 == i) {
+                    paging_output += "<a href='#' onclick='boardList("
+                            + (i + 1) + ")'>" + (i + 1) + "</a>";
+                }
+            } else if (paging_num > 1
+                    && paging_num < parseInt(paging_cnt) + 1) {
+                //클릭한 숫자가 1보다 크고 마지막 페이지 숫자보다 작은 경우
+                if (paging_num - 2 == i || paging_num - 1 == i
+                        || paging_num == i) {
+                    paging_output += "<a href='#' onclick='boardList("
+                            + (i + 1) + ")'>" + (i + 1) + "</a>";
+                }
+            }
+            /* if (i == parseInt(paging_cnt)) {
+                paging_output += "&gt;&gt;";
+            } */
+            if (i == parseInt(paging_cnt)) {
+                // 마지막 페이지인 경우 +1을 하지 않는다.
+                if (paging_num == parseInt(paging_cnt) + 1) {
+                    paging_output += "<a href='#' onclick='boardList("
+                            + (paging_num) + ")'>&gt;&gt;</a>";
+                } else {
+                    //현재 클릭한 페이지가 마지막페이지가 아닌경우이며 +1 한다.
+                    paging_output += "<a href='#' onclick='boardList("
+                            + (paging_num + 1) + ")'>&gt;&gt;</a>";
+                }
+            }
+        }
+        $(".div_paging_a").append(paging_output);
+        //글이 30개 이하인 경우 좌우 화살표 출력하지 않기
+        if (paging_cnt > basic_paging_cnt) {
+            $(".button_side").show();
+        } else {
+            $(".button_side").hide();
+        }
+        let output = "";
+        boardParse.reverse().forEach(
+                function(element, index) {
+                    if (min_num <= index + 1 && index + 1 <= max_num) {
+                        output += "<tr>";
+                        output += "<td>" + (total_cnt - index) + "</td>";
+                        output += "<td><a href='#' onclick=fn_title("
+                                + element.write_num + ")>"
+                                + element.notice_title + "</a></td>";
+                        output += "<td>" + element.mem_id + "</td>";
+                        output += "<td>" + element.current_date + "</td>";
+                        output += "</tr>";
+                    }
+                });
+        $("#div_table > table > tbody").append(output);
+    }
+}
+
+function fn_title(temp_write_num){
+	console.log("temp_write_num : "+ temp_write_num);
+	sessionStorage.setItem("temp_write_num",temp_write_num);
+	location.href="/sample01_ajax/board_write.do";
+
+}
+function board_write(){
+	console.log("board_write");
+	sessionStorage.removeItem("temp_write_num");
+	location.href="/sample01_ajax/board_write.do"
+}
+
+
+
+
+
+</script>
+</head>
+<body>
+    <div id="wrap">
+        <div class="header">
+            <div class="top_nav">
+                <!-- header 영역 -->
+            </div>
+        </div>
+        <!-- header e -->
+
+        <div class="intro_bg">
+            <div class="intro_text">
+                <h1>NextIT</h1>
+                <h4>넥스트아이티</h4>
+            </div>
+        </div>
+        <!-- intro_bg e -->
+
+        <!-- 전체 영역잡기 -->
+        <div class="contents">
+            <!-- 사용할 영역잡기 -->
+            <div class="content01">
+                <div class="content01_h1">
+                    <h1>공지사항</h1>
+                </div>
+                <!-- 리스트 -->
+                <div id="div_table">
+                    <table>
+                        <colgroup>
+                            <col width="40">
+                            <col >
+                            <col width="180">
+                            <col width="300">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>시간</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- paging -->
+                <div class="div_paging">
+                    <div class="div_paging_a">
+                
+                
+                <!--    <a href="">&lt;&lt;</a>
+                        <a href="">1</a>
+                        <a href="">2</a>
+                        <a href="">3</a>
+                        <a href="">&gt;&gt;</a> -->
+                        
+                        
+                    </div>
+                    <div class="div_board_write">
+                        <input type="button" onclick = "board_write()" value="글쓰기">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+         <!-- footer -->
+         <footer id="page_footer">
+            <!-- footer영역 -->
+        </footer>
+
+   </div>    
+</body>
+</html>
