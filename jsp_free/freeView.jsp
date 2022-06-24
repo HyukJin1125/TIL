@@ -31,9 +31,8 @@
 			FreeBoardVO freeBoard = freeBoardService.getBoard(boNo);
 			freeBoardService.increaseHit(boNo);
 			request.setAttribute("freeBoard", freeBoard);
-		} catch (BizNotFoundException
-				| BizNotEffectedException e) {
-			request.setAttribute("e", e);
+		} catch (BizNotFoundException bne) {
+			request.setAttribute("bne", bne);
 		}
 	%>
 
@@ -69,7 +68,7 @@
 				</tr>
 				<tr>
 					<th>글분류</th>
-					<td>${freeBoard.boCategory }</td>
+					<td>${freeBoard.boCategoryNm }</td>
 				</tr>
 				<tr>
 					<th>작성자명</th>

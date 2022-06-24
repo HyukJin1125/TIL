@@ -1,4 +1,7 @@
 
+<%@page import="com.study.exception.BizNotEffectedException"%>
+<%@page import="com.study.free.service.FreeBoardServiceImpl"%>
+<%@page import="com.study.free.service.IFreeBoardService"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -25,61 +28,30 @@ boTitle, bo**
 <jsp:useBean id="freeBoard" class="com.study.freeboard.vo.FreeBoardVO"></jsp:useBean>
 <jsp:setProperty property="*" name="freeBoard" />
 <%
-Connection conn= null;
-PreparedStatement pstmt=null;
-ResultSet rs=null;
-try{
-	// 연결
-	conn=DriverManager.getConnection("jdbc:apache:commons:dbcp:study");
-	// 쿼리문 만들기 StringBuffer
-	StringBuffer sb = new StringBuffer();
-	// 쿼리
-	sb.append(" INSERT INTO free_board (     						");
-	sb.append("      bo_no  , bo_title  , bo_category    		");
-	sb.append("    , bo_writer  , bo_pass    , bo_content		");
-	sb.append("    , bo_hit  , bo_reg_date  , bo_mod_date     	");
-	sb.append("    , bo_del_yn     									");
-	sb.append("    )     											");
-	sb.append("    VALUES(               							");
-	sb.append("    seq_free_board.nextval  ,?            ,?     ");
-	sb.append("           , ?     	, ?       ,  ?            	");
-    sb.append("         	,0      ,sysdate     ,null  			"); 
-    sb.append("			,'N'     									");
-    sb.append("		)           									");
+		IFreeBoardService freeBoardService =new FreeBoardServiceImpl();
+		try{
+			freeBoardService.registBoard(freeBoard);
+		}catch (BizNotEffectedException e){
+			request.setAttribute("e", e);
+		}
 
-	pstmt=conn.prepareStatement(sb.toString());
-	// ? 세팅 , 쿼티실행
+
 	
-	int i =1 ;
-	pstmt.setString(i++,freeBoard.getBoTitle());
-	pstmt.setString(i++,freeBoard.getBoCategory());
-	pstmt.setString(i++,freeBoard.getBoWriter());
-	pstmt.setString(i++,freeBoard.getBoPass());
-	pstmt.setString(i++,freeBoard.getBoContent());
-	int cnt = pstmt.executeUpdate();
-
-
-}catch(SQLException e){
-		e.printStackTrace();
-	}finally{
-		//종료
-		if(rs!=null){try{rs.close();}catch(Exception e){}}
-		if(pstmt!=null){try{pstmt.close();}catch(Exception e){}}
-		if(conn!=null){try{conn.close();}catch(Exception e){}}
-	}
 
 
 
 
 %>
+		<c:if test="${e eq null }">
 		<div class="alert alert-success">
 			정상적으로 글이 되었습니다.
 		</div>		
-	
+	</c:if>
+			<c:if test="${e ne null }">
 		<div class="alert alert-warning">
 			글 등록 실패    
 		</div>	
-	
+	</c:if>
 <a href="freeList.jsp?" class="btn btn-default btn-sm">
 		<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
 		&nbsp;목록

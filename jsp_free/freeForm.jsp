@@ -1,3 +1,6 @@
+<%@page import="com.study.code.vo.CodeVO"%>
+<%@page import="com.study.code.service.CommCodeServiceImpl"%>
+<%@page import="com.study.code.service.ICommCodeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
@@ -9,6 +12,15 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/inc/top.jsp"%>
+<%
+	ICommCodeService codeService=new CommCodeServiceImpl();
+	List<CodeVO> categoryList = codeService.getCodeListByParent("BC00");
+	request.setAttribute("categoryList", categoryList);
+%>
+
+${categoryList }
+
+
 <div class="container">
 	<div class="page-header">
 		<h3>자유게시판 - <small>글 등록</small></h3>
@@ -41,11 +53,12 @@
 			<th>분류</th>
 			<td>
 				<select name="boCategory" class="form-control input-sm" required="required">
-					<option value="">-- 선택하세요--</option>					
-          <option value="BC01">프로그램</option>
-          <option value="BC02">웹</option>
-          <option value="BC03">사는 이야기</option>
-          <option value="BC04">취업</option>
+					<option value="">-- 선택하세요--</option>
+					<c:forEach items = "${categoryList }" var="category">
+					<option value = "${category.commCd }">${category.commNm }</option>
+								<!-- items(categoryList) 는 List 타입 그 안(category)은 VO 타입 -->
+					</c:forEach>
+		
 				</select>	
 			</td>
 		</tr>
