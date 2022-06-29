@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>고쿠텐 동탄점</title>
+<link rel="icon" type="image/x-icon" href="./images/gokuten_log.JPG">
+<link rel="stylesheet" type="text/css" href="./css/login.css">
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+window.onload = function(){
+    let mem_id_tag  = document.getElementById("mem_id");
+    let mem_pw_tag  = document.getElementById("mem_pw");
+    mem_id_tag.onclick = function(){
+        document.querySelector(".login_form label[for='mem_id']").classList.remove("warning");
+    }    
+    mem_pw_tag.onclick = function(){
+        document.querySelector(".login_form label[for='mem_pw']").classList.remove("warning");
+    }
+}
+function login(){
+	let mem_id = document.getElementById("mem_id").value;
+	let mem_pw = document.getElementById("mem_pw").value;
+	console.log("mem_id::"+mem_id);
+	let label_mem_id = document.querySelector(".login_form label[for='mem_id']");
+	let label_mem_pw = document.querySelector(".login_form label[for='mem_pw']");
+	
+	if(mem_id === null || mem_id === undefined || mem_id ===""){
+	    label_mem_id.classList.add("warning");
+	    alert("아이디 또는 패스워드가 입력되지 않았습니다.");
+	    return false;
+	}else if(mem_pw === null || mem_pw === undefined || mem_pw ===""){
+	    label_mem_pw.classList.add("warning");
+	    alert("아이디 또는 패스워드가 입력되지 않았습니다.");
+	    return false;
+	}else{
+
+
+		let memberList = localStorage.getItem("memberList");
+       	if(memberList === null || memberList === undefined || memberList === "" ){
+	 		console.log("회원 목록을 불러오지 못하였습니다.");
+	 	}else{
+	 		let mem_id = $("#mem_id").val();
+	 		let mem_pw = $("#mem_pw").val();
+
+	 		
+	 		memberList = JSON.parse(memberList);
+	 		console.log("memberList.length:::::"+memberList.length);
+	 		
+	 		for(let i=0; i<memberList.length; i++){
+	 			if(mem_id == memberList[i].mem_id){
+	              console.log("아이디가 존재 합니다.");
+	              if(mem_pw == memberList[i].mem_pw){
+	                  console.log("아이디와 패스워드가 일치합니다");
+	                  sessionStorage.setItem("mem_id", mem_id);
+	                  location.href ="/hyukjin_proj/home.do";
+	                  return false;
+	              }else{
+	                  alert("아이디 또는 패스워드가 올바르지 않습니다.");
+	                  return false;
+	              }
+	  			}
+	  		}
+		 	alert("아이디가 존재하지 않습니다. 회원가입을 원하시면  join을  눌러주세요");
+		}
+ 	}
+}    
+
+
+function join(){
+	// alert("join");
+	location.href ="./join.do";
+}
+function forgotPw(){
+	// alert("forgotPw");
+	location.href ="./forgotPw.do";
+}
+
+</script>
+
+</head>
+<body>
+<div class = "login_form">
+<h1>GOKUTEN DONGTAN</h1>
+<form name = "loginForm" action = "">
+    <div class = "int-area">
+        <input type = "text" name="mem_id" id="mem_id" value="" autocomplete="off" required>
+        <label for="mem_id">ID</label>
+    </div>
+    <div class="int-area">
+        <input type = "password" name="mem_pw" id = "mem_pw" autocomplete="off" required>
+        <label for="mem_pw">PASSWORD</label>
+    </div>
+<div class="btn-area">
+    <button type="button" id="btn_id" name="btn_id" onclick="login()">로그인</button>
+
+</div>
+
+</form>
+<div class = "caption">
+    <ul class = "caption_ul">
+        <li>
+            <a href="#" onclick= "join()">회원가입</a>
+
+        </li>
+<li>
+    <a href="#" onclick="forgotPw()">비밀번호 찾기</a>
+</li>
+
+
+    </ul>
+
+
+</div>
+
+</div>
+</body>
+
+</html>
