@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>NextIT</title>
+<link rel="icon" type="image/x-icon" href="./images/nextit_log.jpg" />
+<link rel="stylesheet" type="text/css"  href="./css/style_boardList.css">
+<link rel="stylesheet" type="text/css"  href="./css/header.css">
+<link rel="stylesheet" type="text/css"  href="./css/footer.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+$(function(){
+
+	$(".top_nav").load("/hyukjin_proj/header.do");
+	$("#page_footer").load("/hyukjin_proj/footer.do");
+	
+	boardList(); 
+});
+
+
+function boardList(cur_num){
+	console.log("boardList");
+	console.log("cur_num :" +cur_num);
+	
+	
+	
+	$("#div_table > table > tbody > tr").remove();
+	$(".div_paging_a").children().remove();
+	$(".div_paging_a").text("");
+       
+	let boardList = localStorage.getItem("boardList");
+	console.log("boardList : ", boardList);
+	
+	if (boardList !== null && boardList !== undefined && boardList !=="") {
+		
+		let boardParse = JSON.parse(boardList);
+		console.log(boardParse);
+		
+		let total_cnt = boardParse.length;
+        console.log("total_cnt : " , total_cnt);
+    	
+		let basic_paging_cnt = 3 ;
+		let paging_cnt = total_cnt / 10;
+		console.log("paging_cnt : " , paging_cnt);
+
+		let paging_num ;
+		if( cur_num !== null && cur_num !== undefined && cur_num !=="" && cur_num != 0 ){
+            paging_num =cur_num; 
+        }else{
+            paging_num =1;
+        }
+		
+		let min_num = (paging_num * 10) - 9;    
+      	let max_num = (paging_num * 10)
+      	
+      	console.log( "min_num : ", min_num);
+		console.log( "max_num : ", max_num);
+		
+		let paging_output="";
+		for (let i = 0; i < paging_cnt; i++) {
+
+			if (i == 0) {
+
+				paging_output += "<a href='#' class='button_side' onclick='boardList("+ (paging_num-1) +")'>&lt;&lt;</a>"
+			}
+			
+			if( paging_num ==1 ){
+	              
+	                if ( i<3){
+			     		paging_output += "<a href='#' onclick='boardList( "+(i + 1)+" )'> " + (i + 1) + " </a>";
+	                }
+				
+				}else if(paging_num == parseInt(paging_cnt) +1 || paging_num == paging_cnt){
+	     
+	                if ( paging_num-3 == i || paging_num-2 ==i || paging_num-1 == i){
+	                	paging_output += "<a href='#' onclick='boardList( "+(i+1)+" )'> " + (i+1) + " </a>";
+	                }
+	            }else{
+				
+					if ( paging_num-2 == i || paging_num-1 ==i || paging_num == i){  
+					
+						paging_output += "<a href='#' onclick='boardList( "+(i+1)+" )'> " + (i+1) + " </a>";
+					}
+				}
+            
+				
+             	
+        	
+     		 if (i == parseInt(paging_cnt) || i == ( paging_cnt -1) ) {  
+   			
+                 if( paging_num == parseInt(paging_cnt) +1 || paging_num == parseInt(paging_cnt) ){
+				
+                    paging_output += "<a href='#' class='button_side' onclick=boardList("+(paging_num)+")>&gt;&gt;</a>";
+                 }else{
+                
+					paging_output += "<a href='#' class='button_side' onclick=boardList("+(paging_num+1)+")>&gt;&gt;</a>";
+                 }
+             }
+		}
+		$(".div_paging_a").append(paging_output);
+		
+
+		if ( paging_cnt > basic_paging_cnt ) {
+			$(".button_side").show();
+		} else {
+			$(".button_side").hide();
+      	}
+
+
+		
+      	let output = "";
+		boardParse.reverse().forEach(function (element, index) {
+			if (min_num <= index +1 && index + 1  <= max_num) {
+				output = "";  
+				output += "<tr>";
+				output += "<td>" + (total_cnt - index) + "</td>";
+				output += "<td>" + "<a href='#' onclick=fn_title("+element.write_num+")>" + element.notice_title + "</a></td>";
+				output += "<td>" + element.mem_id + "</td>";
+				output += "<td>" + element.write_date + "</td>";
+				output += "<tr>";
+		       	$("#div_table > table > tbody").append(output);
+			}
+		});
+	} 
+ } 
+
+function fn_title(temp_write_num) {
+   
+    sessionStorage.setItem("temp_write_num", temp_write_num);
+    location.href = "/hyukjin_proj/board_write.do";
+}
+
+
+function board_write(){
+	sessionStorage.removeItem("temp_write_num");
+	location.href = "/hyukjin_proj/board_write.do";
+}
+</script>
+</head>
+<body>
+    <div id="wrap">
+        <div class="header">
+            <div class="top_nav">
+                <!-- header 영역 -->
+            </div>
+        </div>
+        <!-- header e -->
+
+        <div class="intro_bg">
+            <div class="intro_text">
+                <h1>고쿠텐 동탄점</h1>
+            </div>
+        </div>
+        <!-- intro_bg e -->
+
+        <!-- 전체 영역잡기 -->
+        <div class="contents">
+            <!-- 사용할 영역잡기 -->
+            <div class="content01">
+                <div class="content01_h1">
+                    <h1>자유게시판</h1>
+                </div>
+                <!-- 리스트 -->
+                <div id="div_table">
+                    <table>
+                        <colgroup>
+                            <col width="40">
+                            <col >
+                            <col width="180">
+                            <col width="300">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>시간</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 
+                           	<tr>
+                                <tr>
+                                <td>10</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="#"></a> test_01</td>
+                                <td>specialyw</td>
+                                <td>2021.09.13</td>
+                            </tr>
+                            -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- paging -->
+                <div class="div_paging">
+                    <div class="div_paging_a">
+                    
+<!-- 4차-4 기존에 하드코딩한 부분 주석 차리하기(4차-5) -->
+                    	<!--페이징 처리 
+                        <a href="">&lt;&lt;</a>
+                        <a href="">1</a>
+                        <a href="">2</a>
+                        <a href="">3</a>
+                        <a href="">&gt;&gt;</a>
+                         -->
+                    </div>
+                    <div class="div_board_write">
+<!--1차-3 글쓰기 버튼 처리 (1차-4) -->
+                        <!-- <input type="button" value="글쓰기"> -->
+                        <input type="button" onclick="board_write()" value="글쓰기">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+         <!-- footer -->
+         <footer id="page_footer">
+            <!-- footer영역 -->
+        </footer>
+
+   </div>    
+</body>
+</html>

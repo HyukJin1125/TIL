@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>고쿠텐 동탄점</title>
+<link rel="icon" type="image/x-icon" href="./images/gokuten_log.JPG">
+<link rel="stylesheet" type="text/css" href="./css/home.css">
+<link rel="stylesheet" type="text/css" href="./css/footer.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    window.onload=function(){
+        //alert("window.onload");
+        $("#page_footer").load("/hyukjin_proj/footer.do");
+        
+        let img_files = [
+            "./images/img.jpg",
+            "./images/img01.jpeg",
+            "./images/introbg02.JPG"
+        ];
+        
+        let div_img = document.getElementById("img_div");
+        let i = 0;
+        function fn_change_img(){
+           // console.log("fn_change_img");
+           console.log("i:: " + i);
+           div_img.style.backgroundImage="url("+ img_files[i] +")";
+           
+           if(i==2){
+               i=0;
+           }else{
+                i++;
+           }
+           
+           div_img.style.transitionDuration = "2s";
+        }
+        
+        setInterval(function(){
+            fn_change_img();
+        },4000);
+    }
+</script>
+
+</head>
+<body>
+<!-- hello world -->
+<div id="wrap">
+    <div id="img_div" class="intro_bg">
+        <div class="header">
+            <!-- 1차 작업 header 스타트 -->
+            <div class="searchArea">
+                <form action="">
+                    <input type="text" id="input_search" name="input_search"
+                        value="" placeholder="Search">
+                    <span>검색</span>
+                </form>
+                
+            </div>
+            <ul class="nav">
+                <li><a href="#">홈</a></li>
+                <li><a href="#about">소개</a></li>
+                <li><a href="#service">메뉴</a>
+                    <ul>
+                      <li><a href="#">로우텐동</a></li>
+                      <li><a href="#">고쿠텐동</a></li>     
+                      <li><a href="#">새우텐동</a></li>     
+                      <li><a href="#">장어텐동</a></li>     
+                
+                    </ul>
+                </li>
+                <li><a href="#content">예약하기</a></li>    
+                <li><a href="./board_list.do">자유게시판</a></li> 
+            </ul>
+               <!-- 반응형 추가 시작 -->
+               
+               <input type="checkbox" id="menuicon">
+               <!-- 3줄 선 그리기 -->
+             <label for="menuicon">  
+              <span></span>
+              <span></span>
+              <span></span>
+            </label>
+            <div class="header_icon">
+                <ul class="menu">
+                    <li><a href="#">홈</a></li>
+                    <li><a href="#about">소개</a></li>
+                    <li><a href="#service">메뉴</a></li>
+                    <li><a href="#content">예약하기</a></li>
+                    <li><a href="./board_list.do">자유게시판</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="intro_text">
+            <h1>튀김덮밥의 정석</h1>
+            <h4>고쿠텐 동탄점 입니다</h4>
+        </div>    
+    </div>
+    <!-- 1차 작업 intro_bg 끝 -->
+    
+    <!-- 2차 작업 main_text1 스타트 -->    
+    <div class="main_text1">
+        <h1 id="about">저희 매장을 소개합니다.</h1>
+    
+       <div class="icon_img1">
+       <img src="./images/gokutenMain.JPG" alt="이미지가 없습니다.">
+       <div class="contentes1_bold">
+        <h1>든든한 한끼</h1>
+        <p>고쿠텐 동탄점은 동탄 북광장에 위치하고 있으며</p>
+        <p>찾아주시는 모든 분들이 만족 하고 드실 수 있는</p>
+        <p>식사를 위하여 항상 최선을 다해 노력하고 있습니다.</p>
+        </div>
+       </div>
+       <div class="icon_img2"> 
+       <div class="contentes2_bold">
+        <h1>신선한 재료</h1>
+        <p> 1. 매일 오전과 오후에 한번씩 새로운 기름으로 교체하여 깨끗한 기름만을 사용합니다.<br>
+            2. 날마다 들어오는 신선한 야채와 해산물을 사용하며, 당일 미사용분은 폐기처리를 원칙으로 합니다.<br>
+            3. 고쿠텐만의 특제소스인 타래소스는 각종 약재와 물, 간장 등을 일정한 비율로 8시간의 정성을 담아 만듭니다.
+        </p>
+        </div>
+        <img src="./images/Fresh.jpg" alt="이미지가 없습니다.">
+        </div>
+        <div class="icon_img3">
+        <img src="./images/gokutenMain02.JPG" alt="이미지가 없습니다.">
+        <div class="contentes3_bold">
+        <h1>청결한 매장</h1>
+        <p>고쿠텐 동탄점은 오픈된 주방에서 항상 청결하게 조리되므로</p>
+        <p>믿고 드실 수 있습니다. 또한 주기적인 방역업체의 방문과</p>
+        <p>매장 내 자체 소독을 진행하고 있어 쾌적한 환경에서 식사가 가능합니다.</p>
+        </div>
+        </div>
+    </div>    
+    <!-- 2차 작업 main_text1 끝 -->
+
+    <!-- 3차 작업 main_text2 시작 -->
+    <div class="main_text2">
+        <h1 id="service">기본 메뉴</h1>
+        <h1 id="service2">스페셜 메뉴</h1>
+    
+     <div class="contents">
+        <div class="box">
+            <div>
+            <img src="./images/menu01.jpg" alt = "이미지가 존재하지 않습니다.">
+          
+            </div>
+            <div class="contents1">
+                <h2>로우텐동</h2>
+                <p>새우1, 단호박1, 가지1, 꽈리고추1, 버섯1</p>
+                <p>(양이 적으신 분들께 추천드립니다.)</p>
+            </div>
+        </div>
+        <div class="box">
+            <div>
+                <img src="./images/menu02.JPG" alt = "이미지가 존재하지 않습니다.">
+               
+            </div>
+            <div class="contents2">
+                <h2>고쿠텐동</h2>
+                <p>새우2, 단호박1, 가지1, 꽈리고추1, 버섯1, 오징어1</p>
+                <p>(고쿠텐의 기본 메뉴입니다.)</p>
+            </div>
+        </div>
+        <div class="box">
+            <div>
+                <img src="./images/menu03.JPG" alt = "이미지가 존재하지 않습니다.">
+               
+            </div>    
+            <div class="contents3">
+                <h2>새우텐동</h2>
+                <p>새우4, 단호박1, 꽈리고추1</p>
+                <p>(새우튀김을 좋아하시는 분들께 추천드립니다.)</p>
+            </div>
+        </div>
+        <div class="box">
+            <div>
+                <img src="./images/menu04.jpg" alt = "이미지가 존재하지 않습니다.">
+                
+            </div>
+            <div class="contents4">
+                <h2>장어텐동</h2>
+                <p>새우2, 장어1, 단호박1, 가지1, 꽈리고추1, 버섯1, 오징어1</p>
+                <p>(통영 국내산 장어 한마리가 통으로 들어간 고쿠텐의 시그니처메뉴입니다.)</p>
+            </div> 
+        </div>
+     </div>
+    </div>
+    <!-- 3차 작업 main_text2 끝 -->
+
+ <!-- 4차 작업 main_text3 시작 -->
+ <div class="main_text3">
+    <ul>
+        <li>
+            <div class="last_bg1">
+               <h1 id="content">예약하기</h1>     
+               <div>
+                    <p>고쿠텐 동탄점입니다.</p>
+               </div>
+               <div class="more2">
+                    <p>더 알아보기</p>
+               </div>
+            </div>
+        </li>
+        <li>
+            <div class="last_bg2">
+               <h1>오시는 길</h1>     
+               <div>
+                    <p>고쿠텐 동탄점입니다.</p>
+               </div>
+               <div class="more2" onclick="location.href='/hyukjin_proj/map.do'">
+                    <p>더 알아보기</p>
+               </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- 4차 작업 main_text3 끝 -->
+
+<!-- 5차 footer 작업 시작-->
+<footer id="page_footer">
+
+</footer>
+
+<!-- 5차 footer 작업 끝 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</body>
+</html>
+
