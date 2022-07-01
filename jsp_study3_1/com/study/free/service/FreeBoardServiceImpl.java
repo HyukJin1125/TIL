@@ -17,7 +17,7 @@ import com.study.free.vo.FreeBoardVO;
 
 public class FreeBoardServiceImpl  implements IFreeBoardService{
 	
-	private SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
+	SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
 
 	
 	
