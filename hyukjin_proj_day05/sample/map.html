@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>고쿠텐 동탄점</title>
+<link rel="icon" type="image/x-icon" href="./images/gokuten_log.jpg" />
+<link rel="stylesheet" type="text/css" href="./css/map.css" />
+</head>
+<body>
+<div class="bar_content">
+				<h2>고쿠텐 동탄점</h2>
+				<div class="barexpl">
+					주소 :  경기도 화성시 반송동 86-7 오피스타워 1층 107호
+					<br> 영업시간 : 11:30 ~ 21:00 (break time 15:00 ~ 17:00 last order 점심 : 14:30 저녁 : 20:30) <br> 
+					Take - out 가능<br> 전화번호 : 070 - 7799- 2514  <br>
+				</div>
+			</div>
+			<!-- 지도 넣을 부분  -->
+			<div class=map_wrap>
+				<div id="mapJak" style="width: 1000px; height: 350px;"></div>
+				<HR>
+
+<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e14505da434f8d34d7db7788c2380c77"></script>
+	<script>
+	
+		var mapContainer = document.getElementById('mapJak'), // 지도를 표시할 div 
+		mapOption = {
+			center : new kakao.maps.LatLng(37.20702241250281,
+					127.07425950902174), // 지도의 중심좌표
+			level : 3
+		// 지도의 확대 레벨
+		};
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+		//마커가 표시될 위치입니다 
+		var markerPosition = new kakao.maps.LatLng(37.20702241250281,
+				127.07425950902174);
+
+		//마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+			position : markerPosition
+		});
+
+		marker.setMap(map);
+	</script>
+</body>
+</html>
