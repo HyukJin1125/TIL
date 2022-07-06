@@ -1,0 +1,28 @@
+<script>
+	$(function(){
+	   //alert("123");
+	   let check_login = sessionStorage.getItem("mem_id");
+	   console.log(check_login);
+	   if (check_login ===null || check_login === undefined || check_login ==="" ){
+		   alert("로그인하셔야 이용 가능합니다.");
+		   location.href="/hyukjin_proj/login.do"
+	   } 
+	  });  
+   </script>
+   <div class="searchArea">
+   <div class="title">
+   GOKUTEN 동탄점
+   </div>
+	   <form action="">
+		   <input type="text" id="input_search" name="input_search"
+			   value="" placeholder="Search">
+		   <span>검색</span>
+	   </form>
+   </div>
+   <ul class="nav">
+	   <li><a href="./home.do">홈</a></li>
+	   <li><a href="./home.do#about">소개</a></li>
+	   <li><a href="./home.do#service">메뉴</a></li>
+	   <li><a href="./home.do#content">예약하기</a></li>
+	   <li><a href="">자유게시판</a></li>
+   </ul>
