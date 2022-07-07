@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>고쿠텐 동탄점</title>
+<link rel="icon" type="image/x-icon" href="./images/gokuten_log.JPG">
+<link rel="stylesheet" type="text/css"  href="./css/header.css">
+<link rel="stylesheet" type="text/css"  href="./css/footer.css">
+<link rel="stylesheet" type="text/css"  href="./css/boardList.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+.button_div{
+	width: 1000px;
+	text-align: right;
+	margin-top:20px;
+}
+.canvas_div{
+    width: 1280px;
+    height: 700px;
+}    
+#myChart{
+    width: 1280px;
+    height: 700px;
+}
+
+
+</style>
+<script>
+let values;
+$(function(){
+//1차-1 url 변경하기 (1차-2)
+	$(".top_nav").load("/hyukjin_proj/header.do");
+	$("#page_footer").load("/hyukjin_proj/footer.do");
+	fineDust_json();
+}); 
+
+function fineDust_json(){
+    //alert("fineDust_json");
+
+    //이번년도 기준으로 요청하기
+    let date = new Date();
+    let year01 = date.getFullYear().toString(); 
+    console.log("year01::"+year01);
+    
+    $.ajax({
+        url: '/hyukjin_proj/fineDust_json.do',
+        type:'post',
+        data: { year: year01 },
+        contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+        dataType:'json',
+        success: function(data){
+       // 	alert("success")
+            console.log(data);
+//2차-1 서버에서 json데이터 받아서 처리하기(2차-2)
+            //data를 json 파싱 페이지에서 보여주기
+			let fine_dust = JSON.parse(data);
+            console.log(fine_dust);
+            
+			fine_dust = fine_dust.response.body.items;
+            console.log(fine_dust.length);
+            
+            let insertHtml ="";
+//2차-2 서버에서 json데이터 받아서 처리하기(2차-3)
+         /*
+			for(let i=0 ; i < fine_dust.length; i ++){
+				insertHtml +="<tr>";
+				insertHtml +="<td>"+(i+1)+"</td>";//순번
+				insertHtml +="<td>"+fine_dust[i].districtName+"</td>";//지역
+				insertHtml +="<td>"+fine_dust[i].moveName+"</td>";//검측장소
+				insertHtml +="<td>"+fine_dust[i].issueDate+"</td>";//일시
+				insertHtml +="<td>"+fine_dust[i].issueGbn+"</td>";//구분
+				insertHtml +="<td>"+fine_dust[i].issueVal+"</td>";//수치
+				insertHtml +="</tr>";
+        	} 
+        	$("#div_table > table > tbody").html(insertHtml);
+      	*/
+         
+//2차-3 내림차순 정렬 후 상위 10개만 출력(2차-e)
+         	let temp; 
+            for(let i = 0; i < fine_dust.length-1; i++ ){
+                for (let j = i+1; j < fine_dust.length; j++ ){
+                    if(Number(fine_dust[j].issueVal) > Number(fine_dust[i].issueVal)) {
+                        temp = fine_dust[j];
+                        fine_dust[j] = fine_dust[i];
+                        fine_dust[i] = temp;
+                    }
+                }
+            }
+        	//상위 10개 자르기
+        	values = [];
+            for(let i=0 ; i < 9; i ++){
+            	insertHtml +="<tr>";
+            	insertHtml +="<td>"+(i+1)+"</td>";//순번
+            	insertHtml +="<td>"+fine_dust[i].districtName+"</td>";//지역
+            	insertHtml +="<td>"+fine_dust[i].moveName+"</td>";//검측장소
+            	insertHtml +="<td>"+fine_dust[i].issueDate+"</td>";//일시
+            	insertHtml +="<td>"+fine_dust[i].issueGbn+"</td>";//구분
+            	insertHtml +="<td>"+fine_dust[i].issueVal+"</td>";//수치
+            	insertHtml +="</tr>";
+            	
+            	values.push(fine_dust[i].issueVal);
+            }
+           	$("#div_table > table > tbody").html(insertHtml);
+           	console.log("values::", values);
+           	chart01();
+        },
+        error: function(e){
+            alert("error::"+e.status);
+        }
+    });
+} 
+</script>
+</head>
+<body>
+    <div id="wrap">
+        <div class="header">
+            <div class="top_nav">
+                <!-- header 영역 -->
+            </div>
+        </div>
+        <!-- header e -->
+
+        <div class="intro_bg">
+            <div class="intro_text">
+               
+            </div>
+        </div>
+        <!-- intro_bg e -->
+
+        <!-- 전체 영역잡기 -->
+        <div class="contents">
+<!--1차-2 미세먼지 리스트 테이블 생성(1차-3)-->
+            <div id="div_fineDust">
+	            <div id="div_table">
+		            <table>
+		                <colgroup>
+		                    <!-- 
+		                    <col width="100">
+		                    <col width="?"> 
+		                    -->
+		                </colgroup>
+		                <thead>
+		                    <tr>
+		                        <!-- 
+		                        <th>No</th>
+		                        <th>제목</th> 
+		                        -->
+		                        <th>No</th>
+		                        <th>지역</th>
+		                        <th>검측장소</th>
+		                        <th>일시</th>
+		                        <th>구분</th>
+		                        <th>수치</th>
+		                        
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                    <!-- 미세먼지 리스트 -->
+		                </tbody>
+		            </table>
+		        </div>
+		        <div class="button_div">
+				 	
+					 
+				</div>
+	        </div>
+        </div>
+        
+		<div class="canvas_div">
+		    <canvas id="myChart"></canvas>
+		</div>
+		
+         <!-- footer -->
+         <footer id="page_footer">
+            <!-- footer영역 -->
+        </footer>
+
+   </div>
+<script>
+//라벨
+function chart01(){
+	const labels = [
+	  'January',
+	  'February',
+	  'March',
+	  'April',
+	  'May',
+	  'June',
+	];
+	
+	//데이터
+	//let values =  [0, 10, 5, 2, 20, 30, 45];
+	console.log("values1111:::", values);
+	const data01 = {
+	  labels: labels,
+	  datasets: [{
+	    label: 'My First dataset',
+	    backgroundColor: 'rgb(255, 99, 132)',
+	    borderColor: 'rgb(255, 99, 132)',
+	    data: values,
+	  }]
+	};
+	
+	//설정
+	const config = {
+	  type: 'line',
+	  data: data01,
+	  options: {}
+	};
+	
+	//그리기
+	// === include 'setup' then 'config' above ===
+	var myChart = new Chart(
+	  document.getElementById('myChart'),
+	  config
+	);
+}
+</script>   
+</body>
+</html>
